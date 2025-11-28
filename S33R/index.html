@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <title>S33R Security News Feed</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Live security news feed by clivoa, powered by public RSS sources." />
+  <meta name="description" content="Security news feed by clivoa, powered by prebuilt JSON + public RSS sources." />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -14,519 +14,487 @@
         <div class="badge">Live Feed</div>
         <h1 class="site-title">S33R Security News Feed</h1>
         <p class="site-subtitle muted">
-          A security news board that aggregates items from multiple public RSS sources.
-          Everything is fetched in your browser – nothing is stored on the server.
+          Curated security, threat intel, DFIR, vulnerabilities and more – optimized for GitHub Pages.
         </p>
+      </div>
+
+      <div class="header-meta">
+        <div class="meta-item">
+          <span class="meta-label">Last JSON update</span>
+          <span class="meta-value" id="meta-last-update">loading…</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Time window</span>
+          <span class="meta-value" id="meta-window">last 30 days</span>
+        </div>
+        <div class="meta-item meta-pill">
+          <span class="meta-dot"></span>
+          <span class="meta-text">Prebuilt JSON + client filters</span>
+        </div>
       </div>
     </header>
 
-    <main>
-      <section class="hero-section">
-        <div class="news-search-row">
-          <input
-            id="news-search"
-            type="text"
-            placeholder="Search for APT, CVE, threat actor ..."
-            class="filter-input"
-          />
-          <button id="news-search-btn" class="btn-primary">Search</button>
+    <main class="layout">
+      <section class="controls">
+        <div class="filters-row">
+          <div class="search-group">
+            <label for="news-search-input" class="filter-label">Search</label>
+            <div class="search-input-wrapper">
+              <input
+                id="news-search-input"
+                type="text"
+                class="filter-input"
+                placeholder="Search in title, summary, source…"
+              />
+              <button id="news-search-btn" class="btn-primary">Search</button>
+            </div>
+          </div>
+
+          <div class="sort-group">
+            <label for="sort-select" class="filter-label">Sort</label>
+            <select id="sort-select" class="filter-input">
+              <option value="latest">Newest first</option>
+              <option value="oldest">Oldest first</option>
+              <option value="source">Source A–Z</option>
+            </select>
+          </div>
         </div>
 
-        <div class="news-type-bar">
-          <button class="news-type-btn active" data-type="all">All</button>
-          <button class="news-type-btn" data-type="crypto">Crypto</button>
-          <button class="news-type-btn" data-type="cybercrime">Cybercrime, Darknet</button>
-          <button class="news-type-btn" data-type="dfir">DFIR</button>
-          <button class="news-type-btn" data-type="general">General Security</button>
-          <button class="news-type-btn" data-type="gov_cert">Government, CERT</button>
-          <button class="news-type-btn" data-type="leaks">Leaks</button>
-          <button class="news-type-btn" data-type="malware">Malware</button>
-          <button class="news-type-btn" data-type="threat_intel">Threat Intel</button>
-          <button class="news-type-btn" data-type="malware_analysis">Malware Analysis</button>
-          <button class="news-type-btn" data-type="osint">OSINT, Communities</button>
-          <button class="news-type-btn" data-type="podcasts">Podcasts</button>
-          <button class="news-type-btn" data-type="vendors">Vendors</button>
-          <button class="news-type-btn" data-type="vuln_cves">Vulnerabilities, CVEs</button>
-          <button class="news-type-btn" data-type="exploits">Exploits</button>
-          <button class="news-type-btn" data-type="vuln_advisories">Vulnerability Advisories</button>
+        <div class="filters-row">
+          <div class="checkbox-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="recent-only-checkbox" checked />
+              <span class="checkbox-custom"></span>
+              <span class="checkbox-text">Recent only (last 30 days)</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="filters-row categories-row">
+          <span class="filter-label">Category</span>
+          <div class="news-type-bar" id="category-bar">
+            <button class="news-type-btn active" data-type="all">All</button>
+            <button class="news-type-btn" data-type="crypto">Crypto</button>
+            <button class="news-type-btn" data-type="cybercrime">Cybercrime, Darknet</button>
+            <button class="news-type-btn" data-type="dfir">DFIR</button>
+            <button class="news-type-btn" data-type="general">General Security</button>
+            <button class="news-type-btn" data-type="gov_cert">Government, CERT</button>
+            <button class="news-type-btn" data-type="leaks">Leaks</button>
+            <button class="news-type-btn" data-type="malware">Malware</button>
+            <button class="news-type-btn" data-type="threat_intel">Threat Intel</button>
+            <button class="news-type-btn" data-type="malware_analysis">Malware Analysis</button>
+            <button class="news-type-btn" data-type="osint">OSINT, Communities</button>
+            <button class="news-type-btn" data-type="podcasts">Podcasts</button>
+            <button class="news-type-btn" data-type="vendors">Vendors</button>
+            <button class="news-type-btn" data-type="vulns">Vulnerabilities, CVEs</button>
+            <button class="news-type-btn" data-type="exploits">Exploits</button>
+            <button class="news-type-btn" data-type="vuln_advisories">Vulnerability Advisories</button>
+          </div>
         </div>
       </section>
 
-      <section class="news-section">
-        <div class="news-section-header" style="justify-content: space-between; align-items: center;">
-          <div style="display: flex; align-items: center; gap: 0.6rem;">
-            <h2 style="margin: 0; font-size: 1.05rem;">Latest headlines</h2>
-            <span class="badge badge-soft">Beta</span>
-            <span id="news-count" class="muted small"></span>
-          </div>
-          <label class="muted small" style="display: flex; align-items: center; gap: 0.35rem; cursor: pointer;">
-            <input type="checkbox" id="recent-only" checked />
-            <span>Recent only (last 30 days)</span>
-          </label>
+      <section class="status-bar">
+        <div class="status-left">
+          <span id="status-text">Loading news…</span>
         </div>
+        <div class="status-right">
+          <span id="stats-text"></span>
+        </div>
+      </section>
 
-        <div id="news-list" class="news-list">
-          <div class="card" id="news-loading">
-            <div class="card-header">
-              <div class="card-title">Loading news…</div>
-            </div>
-            <p class="muted card-body-text">
-              Fetching items from multiple security RSS feeds. This may take a few seconds.
-            </p>
-          </div>
+      <section class="news-list-container">
+        <div id="news-list" class="news-list"></div>
+        <div id="loading-indicator" class="loading-indicator">
+          <div class="spinner"></div>
+          <span>Loading news…</span>
+        </div>
+        <div id="end-of-results" class="end-of-results hidden">
+          <span>No more results.</span>
         </div>
       </section>
     </main>
-
-    <footer class="site-footer muted">
-      <span>Built by clivoa · Dracula theme inspired</span>
-      <span>RSS is parsed client-side using a public CORS proxy.</span>
-    </footer>
   </div>
 
   <script>
-  // ====================== CONFIG ======================
-  const OPML_PATH = "sec_feeds.xml";
-  const CORS_PROXY = "https://api.allorigins.win/raw?url=";
-  const TYPE_LABELS = {
-    crypto: "Crypto",
-    cybercrime: "Cybercrime, Darknet",
-    dfir: "DFIR",
-    general: "General Security",
-    gov_cert: "Government, CERT",
-    leaks: "Leaks",
-    malware: "Malware",
-    threat_intel: "Threat Intel",
-    malware_analysis: "Malware Analysis",
-    osint: "OSINT, Communities",
-    podcasts: "Podcasts",
-    vendors: "Vendors",
-    vuln_cves: "Vulnerabilities, CVEs",
-    exploits: "Exploits",
-    vuln_advisories: "Vulnerability Advisories"
-  };
+    // ====================== CONFIG ======================
+    const JSON_URL = "data/news_recent.json";
+    const PAGE_SIZE = 40;
 
-  const TYPE_MAP = {
-    "Crypto & Blockchain Security": "crypto",
-    "Crypt": "crypto",
-    "Crypto": "crypto",
+    const TYPE_LABELS = {
+      crypto: "Crypto",
+      cybercrime: "Cybercrime, Darknet",
+      dfir: "DFIR",
+      general: "General Security",
+      gov_cert: "Government, CERT",
+      leaks: "Leaks",
+      malware: "Malware",
+      threat_intel: "Threat Intel",
+      malware_analysis: "Malware Analysis",
+      osint: "OSINT, Communities",
+      podcasts: "Podcasts",
+      vendors: "Vendors",
+      vulns: "Vulnerabilities, CVEs",
+      exploits: "Exploits",
+      vuln_advisories: "Vulnerability Advisories"
+    };
 
-    "Cybercrime, Darknet & Leaks": "cybercrime",
-    "Cyber Crime": "cybercrime",
-    "DarkNet": "cybercrime",
+    // ====================== STATE ======================
+    const state = {
+      items: [],        // all items from JSON
+      filtered: [],     // items after filters
+      renderedCount: 0,
+      currentType: "all",
+      query: "",
+      recentOnly: true,
+      sort: "latest",
+      isLoading: false
+    };
 
-    "DFIR & Forensics": "dfir",
-    "DFIR Bloggers": "dfir",
-    "DFIR YouTube Feeds": "dfir",
-    "Digital Forensics": "dfir",
+    let listEl, loadingEl, endOfResultsEl, statusEl, statsEl, lastUpdateEl, windowEl;
 
-    "General Security & Blogs": "general",
-    "Blogs": "general",
-    "Cyber Security": "general",
-    "Hacking News": "general",
+    // ====================== HELPERS ======================
+    function parseDate(value) {
+      if (!value) return null;
+      const d = new Date(value);
+      if (isNaN(d.getTime())) return null;
+      return d;
+    }
 
-    "Government, CERT & Advisories": "gov_cert",
-
-    "Leaks & Breaches": "leaks",
-
-    "Malware & Threat Research": "malware",
-    "Malware": "malware",
-
-    "Threat Intel & APT Campaigns": "threat_intel",
-
-    "Malware Analysis & Research": "malware_analysis",
-
-    "OSINT, Communities & Subreddits": "osint",
-    "OSINT": "osint",
-
-    "Podcasts & YouTube": "podcasts",
-    "YT Hacking News": "podcasts",
-
-    "Vendors & Product Blogs": "vendors",
-
-    "Vulnerabilities, CVEs & Exploits": "vuln_cves",
-    "CVE & Exploits": "vuln_cves",
-    "Exploits & PoCs": "exploits",
-
-    "Vulnerability Advisories & Research": "vuln_advisories"
-  };
-
-  const PAGE_SIZE = 20;
-  const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
-
-  // ====================== STATE ======================
-  let NEWS_ITEMS = [];
-  let FEEDS = [];
-  let currentTypeFilter = "all";
-  let filteredItems = [];
-  let renderedCount = 0;
-  let loadingStatusEl = null;
-  let feedsLoaded = 0;
-  let recentOnly = true;
-
-  // ====================== UTILS ======================
-  function stripTags(html) {
-    const tmp = document.createElement("div");
-    tmp.innerHTML = html || "";
-    return (tmp.textContent || tmp.innerText || "").trim();
-  }
-
-  function formatTimeAgo(date) {
-    if (!date || isNaN(date)) return "";
-    const now = Date.now();
-    const diffMs = now - date.getTime();
-    const diffMin = Math.round(diffMs / 60000);
-    if (diffMin < 60) return diffMin + " min ago";
-    const diffH = Math.round(diffMin / 60);
-    if (diffH < 48) return diffH + " hours ago";
-    const diffD = Math.round(diffH / 24);
-    return diffD + " days ago";
-  }
-
-  function resolveType(groupTitle, subTitle) {
-    return TYPE_MAP[subTitle] || TYPE_MAP[groupTitle] || "general";
-  }
-
-  // ====================== OPML PARSE ======================
-  function loadOPMLFeeds() {
-    return fetch(OPML_PATH)
-      .then(r => r.text())
-      .then(xmlText => {
-        const doc = new DOMParser().parseFromString(xmlText, "text/xml");
-        const groupOutlines = Array.from(doc.querySelectorAll("body > outline"));
-        const feeds = [];
-
-        groupOutlines.forEach(group => {
-          const groupTitle = group.getAttribute("title") || group.getAttribute("text") || "";
-          const children = Array.from(group.querySelectorAll(":scope > outline"));
-
-          children.forEach(child => {
-            const xmlUrl = child.getAttribute("xmlUrl");
-            if (xmlUrl) {
-              const title = child.getAttribute("title") || child.getAttribute("text") || xmlUrl;
-              const type = resolveType(groupTitle, null);
-              feeds.push({ title, url: xmlUrl, group: groupTitle, type });
-            } else {
-              const subTitle = child.getAttribute("title") || child.getAttribute("text") || "";
-              const grandChildren = Array.from(child.querySelectorAll(":scope > outline"));
-              grandChildren.forEach(gc => {
-                const xml = gc.getAttribute("xmlUrl");
-                if (!xml) return;
-                const t = gc.getAttribute("title") || gc.getAttribute("text") || xml;
-                const type = resolveType(groupTitle, subTitle);
-                feeds.push({ title: t, url: xml, group: subTitle || groupTitle, type });
-              });
-            }
-          });
-        });
-
-        return feeds;
-      })
-      .catch(err => {
-        console.error("Error loading OPML", err);
-        return [];
+    function formatDate(d) {
+      if (!d) return "no date";
+      return d.toLocaleString(undefined, {
+        year: "numeric",
+        month: "short",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit"
       });
-  }
+    }
 
-  // ====================== RSS PARSE ======================
-  function fetchFeed(feed) {
-    const proxiedUrl = CORS_PROXY + encodeURIComponent(feed.url);
-    return fetch(proxiedUrl)
-      .then(r => r.text())
-      .then(xmlText => parseFeedItems(xmlText, feed))
-      .catch(err => {
-        console.warn("Error fetching feed", feed.url, err);
-        return [];
-      });
-  }
+    function humanCount(n) {
+      if (n == null) return "";
+      if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, "") + "k";
+      return String(n);
+    }
 
-  function parseFeedItems(xmlText, feed) {
-    const doc = new DOMParser().parseFromString(xmlText, "text/xml");
-    const rootName = doc.documentElement.nodeName.toLowerCase();
-    const isAtom = rootName === "feed";
-    const nodes = isAtom
-      ? Array.from(doc.querySelectorAll("entry"))
-      : Array.from(doc.querySelectorAll("item"));
+    function computeThresholdDays(days) {
+      const ms = days * 24 * 60 * 60 * 1000;
+      return new Date(Date.now() - ms);
+    }
 
-    return nodes.slice(0, 5).map(node => {
-      const title = (node.querySelector("title")?.textContent || "(no title)").trim();
-      let link = "";
-      if (isAtom) {
-        const alt = node.querySelector('link[rel="alternate"]');
-        link = alt?.getAttribute("href") || node.querySelector("link")?.getAttribute("href") || "";
-      } else {
-        link = node.querySelector("link")?.textContent?.trim() || "";
-      }
-
-      const descNode = node.querySelector("description") ||
-                       node.querySelector("summary") ||
-                       node.querySelector("content");
-      const desc = descNode ? descNode.textContent : "";
-
-      const pubStr = node.querySelector("pubDate")?.textContent ||
-                     node.querySelector("updated")?.textContent ||
-                     node.querySelector("published")?.textContent || "";
-      const pubDate = pubStr ? new Date(pubStr) : null;
-
-      const summaryRaw = stripTags(desc);
-      const summary = summaryRaw.length > 280
-        ? summaryRaw.slice(0, 277).trimEnd() + "..."
-        : summaryRaw;
-
-      const type = feed.type;
-      const tag = TYPE_LABELS[type] || "News";
+    function normalizeItem(raw) {
+      const published =
+        parseDate(raw.published) ||
+        parseDate(raw.pubDate) ||
+        parseDate(raw.date) ||
+        null;
 
       return {
-        source: feed.title,
-        group: feed.group,
-        type,
-        tag,
-        timeAgo: formatTimeAgo(pubDate),
-        title,
-        summary,
-        link,
-        highlights: [],
-        pubDate
+        title: raw.title || "Untitled",
+        link: raw.link || raw.url || "#",
+        source: raw.source || raw.source_title || "Unknown source",
+        summary: raw.summary || raw.description || "",
+        category: raw.category || raw.type || "general",
+        published,
+        published_raw: raw.published || raw.pubDate || raw.date || null
       };
-    });
-  }
-
-  // ====================== RENDER ======================
-  function appendNewsCard(container, item) {
-    const card = document.createElement("article");
-    card.className = "card news-card";
-
-    const metaRow = document.createElement("div");
-    metaRow.className = "news-card-meta muted";
-
-    const tagSpan = document.createElement("span");
-    tagSpan.className = "pill";
-    tagSpan.textContent = item.tag || "News";
-
-    const sourceSpan = document.createElement("span");
-    sourceSpan.textContent = item.source;
-
-    const groupSpan = document.createElement("span");
-    groupSpan.textContent = "· " + (item.group || "");
-
-    const timeSpan = document.createElement("span");
-    timeSpan.textContent = item.timeAgo ? "· " + item.timeAgo : "";
-
-    metaRow.appendChild(tagSpan);
-    metaRow.appendChild(sourceSpan);
-    if (item.group) metaRow.appendChild(groupSpan);
-    if (item.timeAgo) metaRow.appendChild(timeSpan);
-
-    const titleEl = document.createElement("h3");
-    titleEl.className = "news-card-title";
-
-    const titleLink = document.createElement("a");
-    titleLink.href = item.link || "#";
-    titleLink.target = "_blank";
-    titleLink.rel = "noopener noreferrer";
-    titleLink.textContent = item.title;
-
-    titleEl.appendChild(titleLink);
-
-    const summary = document.createElement("p");
-    summary.className = "news-card-summary muted";
-    summary.textContent = item.summary || "";
-
-    const footer = document.createElement("div");
-    footer.className = "news-card-footer";
-
-    const spacer = document.createElement("div");
-    const link = document.createElement("a");
-    link.href = item.link || "#";
-    link.target = "_blank";
-    link.rel = "noopener noreferrer";
-    link.className = "small-link";
-    link.textContent = "Read full article →";
-
-    footer.appendChild(spacer);
-    footer.appendChild(link);
-
-    card.appendChild(metaRow);
-    card.appendChild(titleEl);
-    card.appendChild(summary);
-    card.appendChild(footer);
-
-    container.appendChild(card);
-  }
-
-  function renderNewsPage(reset) {
-    const container = document.getElementById("news-list");
-    const countLabel = document.getElementById("news-count");
-
-    if (reset) {
-      container.innerHTML = "";
-      renderedCount = 0;
-      loadingStatusEl = document.createElement("div");
-      loadingStatusEl.className = "card";
-      const p = document.createElement("p");
-      p.className = "muted card-body-text";
-      p.id = "news-progress-text";
-      p.textContent = "Loading news feeds…";
-      loadingStatusEl.appendChild(p);
-      container.appendChild(loadingStatusEl);
     }
 
-    if (!filteredItems.length) {
-      countLabel.textContent = "No articles match the current filter.";
-      return;
+    // ====================== RENDERING ======================
+    function clearList() {
+      listEl.innerHTML = "";
+      state.renderedCount = 0;
+      endOfResultsEl.classList.add("hidden");
     }
 
-    const nextItems = filteredItems.slice(renderedCount, renderedCount + PAGE_SIZE);
-    nextItems.forEach(item => appendNewsCard(container, item));
-    renderedCount += nextItems.length;
+    function createCard(item) {
+      const card = document.createElement("article");
+      card.className = "card";
 
-    if (loadingStatusEl && renderedCount > 0) {
-      container.insertBefore(loadingStatusEl, container.firstChild);
-    }
+      const top = document.createElement("div");
+      top.className = "card-top";
 
-    countLabel.textContent =
-      renderedCount >= filteredItems.length
-        ? `${filteredItems.length} articles loaded`
-        : `${renderedCount} of ${filteredItems.length} articles shown`;
-  }
+      const sourceSpan = document.createElement("span");
+      sourceSpan.className = "card-source";
+      sourceSpan.textContent = item.source;
 
-  // ====================== FILTER ======================
-  function applyNewsFilter() {
-    const q = (document.getElementById("news-search").value || "").toLowerCase();
-    const now = Date.now();
+      const metaRight = document.createElement("div");
+      metaRight.className = "card-meta-right";
 
-    filteredItems = NEWS_ITEMS.filter(item => {
-      const matchesType = currentTypeFilter === "all" || item.type === currentTypeFilter;
-
-      const haystack = [
-        item.title,
-        item.summary,
-        item.source,
-        item.group,
-        item.tag
-      ].join(" ").toLowerCase();
-
-      const matchesText = !q || haystack.indexOf(q) !== -1;
-
-      let matchesRecency = true;
-      if (recentOnly) {
-        if (!item.pubDate || isNaN(item.pubDate)) {
-          matchesRecency = false;
-        } else {
-          const age = now - item.pubDate.getTime();
-          matchesRecency = age <= THIRTY_DAYS_MS;
-        }
+      if (item.category && item.category !== "all") {
+        const categoryBadge = document.createElement("span");
+        categoryBadge.className = "card-category";
+        const label = TYPE_LABELS[item.category] || item.category;
+        categoryBadge.textContent = label;
+        metaRight.appendChild(categoryBadge);
       }
 
-      return matchesType && matchesText && matchesRecency;
-    });
+      const dateSpan = document.createElement("span");
+      dateSpan.className = "card-date";
+      dateSpan.textContent = formatDate(item.published);
+      metaRight.appendChild(dateSpan);
 
-    renderNewsPage(true);
-  }
+      top.appendChild(sourceSpan);
+      top.appendChild(metaRight);
 
-  // ====================== PROGRESSIVE FETCH ======================
-  function progressiveFetchFeeds(feeds) {
-    const total = feeds.length;
-    const progressTextEl = document.getElementById("news-progress-text");
-    feedsLoaded = 0;
-    NEWS_ITEMS = [];
+      const title = document.createElement("h2");
+      title.className = "card-title";
+      const link = document.createElement("a");
+      link.href = item.link || "#";
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = item.title;
+      title.appendChild(link);
 
-    feeds.forEach(feed => {
-      fetchFeed(feed).then(items => {
-        feedsLoaded += 1;
-        NEWS_ITEMS.push(...items);
-        NEWS_ITEMS.sort((a, b) => {
-          const da = a.pubDate ? a.pubDate.getTime() : 0;
-          const db = b.pubDate ? b.pubDate.getTime() : 0;
-          return db - da;
+      const body = document.createElement("p");
+      body.className = "card-body-text";
+      body.textContent =
+        item.summary && item.summary.trim().length > 0
+          ? item.summary.trim()
+          : "No summary available for this entry.";
+
+      card.appendChild(top);
+      card.appendChild(title);
+      card.appendChild(body);
+
+      return card;
+    }
+
+    function renderMore() {
+      if (state.isLoading) return;
+      if (!state.filtered || state.filtered.length === 0) {
+        clearList();
+        loadingEl.classList.add("hidden");
+        endOfResultsEl.classList.remove("hidden");
+        endOfResultsEl.textContent = "No results for current filters.";
+        return;
+      }
+
+      if (state.renderedCount >= state.filtered.length) {
+        loadingEl.classList.add("hidden");
+        endOfResultsEl.classList.remove("hidden");
+        endOfResultsEl.textContent = "No more results.";
+        return;
+      }
+
+      state.isLoading = true;
+      loadingEl.classList.remove("hidden");
+
+      const nextItems = state.filtered.slice(
+        state.renderedCount,
+        state.renderedCount + PAGE_SIZE
+      );
+
+      for (const item of nextItems) {
+        const card = createCard(item);
+        listEl.appendChild(card);
+      }
+
+      state.renderedCount += nextItems.length;
+      state.isLoading = false;
+
+      if (state.renderedCount >= state.filtered.length) {
+        loadingEl.classList.add("hidden");
+        endOfResultsEl.classList.remove("hidden");
+      } else {
+        loadingEl.classList.add("hidden");
+      }
+
+      updateStats();
+    }
+
+    function updateStats() {
+      const total = state.items.length;
+      const shown = state.filtered.length;
+      statsEl.textContent = `${humanCount(shown)} shown / ${humanCount(total)} total`;
+    }
+
+    function setStatus(msg) {
+      statusEl.textContent = msg;
+    }
+
+    // ====================== FILTERING ======================
+    function applyFilters(resetRendered) {
+      let items = state.items.slice();
+
+      // Category
+      if (state.currentType && state.currentType !== "all") {
+        items = items.filter((i) => i.category === state.currentType);
+      }
+
+      // Recent only (last 30 days)
+      if (state.recentOnly) {
+        const threshold = computeThresholdDays(30);
+        items = items.filter(
+          (i) => i.published && i.published >= threshold
+        );
+      }
+
+      // Search query
+      const q = (state.query || "").trim().toLowerCase();
+      if (q.length > 0) {
+        items = items.filter((i) => {
+          const haystack = [
+            i.title || "",
+            i.summary || "",
+            i.source || ""
+          ]
+            .join(" ")
+            .toLowerCase();
+          return haystack.includes(q);
         });
-
-        if (progressTextEl) {
-          progressTextEl.textContent = `Loading news feeds… (${feedsLoaded}/${total})`;
-        }
-
-        if (feedsLoaded === 1 || feedsLoaded % 5 === 0 || feedsLoaded === total) {
-          applyNewsFilter();
-        }
-      });
-    });
-  }
-
-  // ====================== BOOTSTRAP ======================
-  document.addEventListener("DOMContentLoaded", function() {
-    const searchInput = document.getElementById("news-search");
-    const searchBtn = document.getElementById("news-search-btn");
-    const recentCheckbox = document.getElementById("recent-only");
-
-    searchBtn.addEventListener("click", applyNewsFilter);
-    searchInput.addEventListener("keyup", function(e) {
-      if (e.key === "Enter") applyNewsFilter();
-    });
-
-    recentCheckbox.addEventListener("change", function() {
-      recentOnly = recentCheckbox.checked;
-      applyNewsFilter();
-    });
-
-    const typeButtons = Array.from(document.querySelectorAll(".news-type-btn"));
-    typeButtons.forEach(btn => {
-      btn.addEventListener("click", function() {
-        typeButtons.forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        currentTypeFilter = btn.dataset.type || "all";
-        applyNewsFilter();
-      });
-    });
-
-    window.addEventListener("scroll", function() {
-      if (
-        renderedCount < filteredItems.length &&
-        window.innerHeight + window.scrollY >= document.body.offsetHeight - 300
-      ) {
-        renderNewsPage(false);
       }
-    });
 
-    const list = document.getElementById("news-list");
-    list.innerHTML = "";
-    loadingStatusEl = document.createElement("div");
-    loadingStatusEl.className = "card";
-    const p = document.createElement("p");
-    p.className = "muted card-body-text";
-    p.id = "news-progress-text";
-    p.textContent = "Loading news feeds…";
-    loadingStatusEl.appendChild(p);
-    list.appendChild(loadingStatusEl);
+      // Sort
+      if (state.sort === "latest") {
+        items.sort((a, b) => {
+          const ad = a.published ? a.published.getTime() : 0;
+          const bd = b.published ? b.published.getTime() : 0;
+          return bd - ad;
+        });
+      } else if (state.sort === "oldest") {
+        items.sort((a, b) => {
+          const ad = a.published ? a.published.getTime() : 0;
+          const bd = b.published ? b.published.getTime() : 0;
+          return ad - bd;
+        });
+      } else if (state.sort === "source") {
+        items.sort((a, b) => {
+          const as = (a.source || "").toLowerCase();
+          const bs = (b.source || "").toLowerCase();
+          if (as < bs) return -1;
+          if (as > bs) return 1;
+          const ad = a.published ? a.published.getTime() : 0;
+          const bd = b.published ? b.published.getTime() : 0;
+          return bd - ad;
+        });
+      }
 
-    loadOPMLFeeds()
-      .then(feeds => {
-        FEEDS = feeds;
-        if (!FEEDS.length) {
-          list.innerHTML = "";
-          const errCard = document.createElement("div");
-          errCard.className = "card";
-          const p = document.createElement("p");
-          p.className = "muted card-body-text";
-          p.textContent =
-            "Could not load feeds from sec_feeds.xml. Please check the file path or try again later.";
-          errCard.appendChild(p);
-          list.appendChild(errCard);
-          return;
+      state.filtered = items;
+
+      if (resetRendered) {
+        clearList();
+      }
+      renderMore();
+    }
+
+    // ====================== DATA LOADING ======================
+    async function loadJson() {
+      setStatus("Loading prebuilt JSON…");
+      loadingEl.classList.remove("hidden");
+
+      const cacheBuster = Date.now();
+      const url = `${JSON_URL}?v=${cacheBuster}`;
+
+      const res = await fetch(url, { cache: "no-store" });
+      if (!res.ok) {
+        throw new Error(`Failed to fetch JSON: ${res.status}`);
+      }
+      const data = await res.json();
+
+      const itemsArray = Array.isArray(data) ? data : data.items || [];
+      state.items = itemsArray.map(normalizeItem);
+
+      // Last update + window
+      if (data.generated_at) {
+        const d = parseDate(data.generated_at);
+        if (d) {
+          lastUpdateEl.textContent = formatDate(d);
+        } else {
+          lastUpdateEl.textContent = data.generated_at;
         }
-        progressiveFetchFeeds(FEEDS);
-      })
-      .catch(err => {
-        console.error("Error loading news", err);
-        list.innerHTML = "";
+      } else {
+        lastUpdateEl.textContent = "unknown";
+      }
+
+      if (data.days_back) {
+        document.getElementById("meta-window").textContent =
+          `last ${data.days_back} days`;
+      }
+
+      setStatus("Ready.");
+      applyFilters(true);
+    }
+
+    // ====================== EVENTS ======================
+    function setupEvents() {
+      // Category buttons
+      const buttons = document.querySelectorAll(".news-type-btn");
+      buttons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          buttons.forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          state.currentType = btn.dataset.type || "all";
+          applyFilters(true);
+        });
+      });
+
+      // Search
+      const searchInput = document.getElementById("news-search-input");
+      const searchBtn = document.getElementById("news-search-btn");
+
+      searchBtn.addEventListener("click", () => {
+        state.query = searchInput.value || "";
+        applyFilters(true);
+      });
+
+      searchInput.addEventListener("keydown", (ev) => {
+        if (ev.key === "Enter") {
+          state.query = searchInput.value || "";
+          applyFilters(true);
+        }
+      });
+
+      // Recent only
+      const recentCheckbox = document.getElementById("recent-only-checkbox");
+      recentCheckbox.addEventListener("change", () => {
+        state.recentOnly = recentCheckbox.checked;
+        applyFilters(true);
+      });
+
+      // Sort
+      const sortSelect = document.getElementById("sort-select");
+      sortSelect.addEventListener("change", () => {
+        state.sort = sortSelect.value || "latest";
+        applyFilters(true);
+      });
+
+      // Infinite scroll
+      windowEl.addEventListener("scroll", () => {
+        const scrollPosition = windowEl.scrollY + windowEl.innerHeight;
+        const threshold = document.body.offsetHeight - 400;
+        if (scrollPosition >= threshold) {
+          renderMore();
+        }
+      });
+    }
+
+    // ====================== INIT ======================
+    document.addEventListener("DOMContentLoaded", () => {
+      listEl = document.getElementById("news-list");
+      loadingEl = document.getElementById("loading-indicator");
+      endOfResultsEl = document.getElementById("end-of-results");
+      statusEl = document.getElementById("status-text");
+      statsEl = document.getElementById("stats-text");
+      lastUpdateEl = document.getElementById("meta-last-update");
+      windowEl = window;
+
+      setupEvents();
+
+      loadJson().catch((err) => {
+        console.error("Error loading news JSON", err);
+        setStatus("Error while loading news JSON.");
+        loadingEl.classList.add("hidden");
+        listEl.innerHTML = "";
         const errCard = document.createElement("div");
         errCard.className = "card";
         const p = document.createElement("p");
-        p.className = "muted card-body-text";
-        p.textContent = "Error while loading news feeds.";
+        p.className = "card-body-text";
+        p.textContent = "Error while loading news feeds. Please try again later.";
         errCard.appendChild(p);
-        list.appendChild(errCard);
+        listEl.appendChild(errCard);
       });
-  });
+    });
   </script>
 </body>
 </html>
