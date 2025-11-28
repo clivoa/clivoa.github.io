@@ -8,6 +8,7 @@ Build a consolidated JSON file with recent security news.
 - Fetches all feeds using feedparser
 - Keeps only last N days (default: 30)
 - Deduplicates by link
+- Cleans HTML from summaries (no raw <p>, <img>, <!-- SC_OFF -->, etc.)
 - Writes data/news_recent.json
 
 This script is meant to be run from the repo root (S33R).
@@ -15,6 +16,8 @@ This script is meant to be run from the repo root (S33R).
 
 import json
 import time
+import re
+import html
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Dict, Any, List, Optional, Iterable, Tuple
@@ -26,6 +29,7 @@ ROOT = Path(__file__).resolve().parent.parent
 OPML_PATH = ROOT / "sec_feeds.xml"
 OUTPUT_PATH = ROOT / "data" / "news_recent.json"
 DAYS_BACK = 30
+MAX_SUMMARY_LEN = 500  # caracteres (depois de limpar HTML)
 
 # Mapeia os grupos reais do sec_feeds.xml para as categorias usadas no front-end
 GROUP_CATEGORY_MAP: Dict[str, str] = {
@@ -47,6 +51,34 @@ GROUP_CATEGORY_MAP: Dict[str, str] = {
     "Exploits & PoCs": "exploits",
     "Vulnerability Advisories & Research": "vuln_advisories",
 }
+
+# Regex simples para limpar HTML
+TAG_RE = re.compile(r"<[^>]+>")
+COMMENT_RE = re.compile(r"<!--.*?-->", re.DOTALL)
+
+
+def clean_html(text: str) -> str:
+    """Remove tags e comentários HTML, normaliza espaços e limita tamanho."""
+    if not text:
+        return ""
+
+    # Remove comentários HTML (ex: <!-- SC_OFF --> ... <!-- SC_ON -->)
+    text = COMMENT_RE.sub(" ", text)
+
+    # Remove tags <p>, <img>, <div>, etc.
+    text = TAG_RE.sub(" ", text)
+
+    # Decodifica entidades (&nbsp;, &#32;, etc.)
+    text = html.unescape(text)
+
+    # Normaliza espaços
+    text = re.sub(r"\s+", " ", text).strip()
+
+    # Limita tamanho para não explodir o card (especialmente Reddit)
+    if len(text) > MAX_SUMMARY_LEN:
+        text = text[:MAX_SUMMARY_LEN].rstrip() + "…"
+
+    return text
 
 
 def guess_category_from_title(title: str) -> str:
@@ -155,12 +187,13 @@ def parse_entry(entry, source_title: str, category: str) -> Optional[Dict[str, A
     if not title or not link:
         return None
 
-    summary = (
+    summary_raw = (
         getattr(entry, "summary", None)
         or entry.get("summary")
         or entry.get("description")
         or ""
     )
+    summary = clean_html(summary_raw)
 
     published = None
     if getattr(entry, "published_parsed", None):
