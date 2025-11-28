@@ -39,7 +39,7 @@ jobs:
         
         run: |
           set -e
-          BRANCH="dev"
+          BRANCH="master"
 
           # List modified (tracked) files inside Lists/ASNs
           CHANGED=$(git ls-files -m S33R/data/* || true)
