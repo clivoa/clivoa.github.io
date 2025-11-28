@@ -15,14 +15,14 @@
         <h1 class="site-title">S33R Security News Feed</h1>
         <p class="site-subtitle muted">
           A security news board that aggregates items from multiple public RSS sources.
-          Everything is fetched in your browser – nothing is stored on the server.
+          Everything is fetched in your browser &mdash; nothing is stored on the server.
         </p>
       </div>
 
       <div class="header-meta">
         <div class="meta-item">
           <span class="meta-label">Last JSON update</span>
-          <span class="meta-value" id="meta-last-update">loading…</span>
+          <span class="meta-value" id="meta-last-update">loading...</span>
         </div>
         <div class="meta-item">
           <span class="meta-label">Time window</span>
@@ -117,7 +117,7 @@
   <script>
     // ====================== CONFIG ======================
     const JSON_URL = "data/news_recent.json";
-    const PAGE_SIZE = 40;
+    const PAGE_SIZE = 30;
 
     const TYPE_LABELS = {
       crypto: "Crypto",
@@ -139,9 +139,9 @@
 
     // ====================== STATE ======================
     const state = {
-      items: [],        // all items from JSON
-      filtered: [],     // items after filters
-      renderedCount: 0,
+      items: [],        // todos do JSON
+      filtered: [],     // após filtros
+      renderedCount: 0, // quantos já estão na tela
       currentType: "all",
       query: "",
       recentOnly: true,
@@ -150,7 +150,7 @@
     };
 
     let listEl, loadingEl, endOfResultsEl, statusEl, statsEl, lastUpdateEl, windowEl;
-    let hasUserScrolled = false; // NEW
+    let hasUserScrolled = false;
 
     // ====================== HELPERS ======================
     function parseDate(value) {
@@ -205,9 +205,10 @@
       listEl.innerHTML = "";
       state.renderedCount = 0;
       endOfResultsEl.classList.add("hidden");
+      updateStats();
     }
 
-        function createCard(item) {
+    function createCard(item) {
       const card = document.createElement("article");
       card.className = "card";
 
@@ -253,7 +254,6 @@
           ? item.summary.trim()
           : "No summary available for this entry.";
 
-      // --- Footer com botão "Read full article" ---
       const footer = document.createElement("div");
       footer.className = "card-footer";
 
@@ -274,6 +274,17 @@
       return card;
     }
 
+    function updateStats() {
+      const total = state.filtered ? state.filtered.length : 0;
+      const shown = state.renderedCount || 0;
+
+      const stats = document.getElementById("stats-text");
+      stats.textContent = `${humanCount(shown)} of ${humanCount(total)} articles shown`;
+    }
+
+    function setStatus(msg) {
+      statusEl.textContent = msg;
+    }
 
     function renderMore() {
       if (state.isLoading) return;
@@ -289,6 +300,7 @@
         document.getElementById("loading-indicator").classList.add("hidden");
         endOfResultsEl.classList.remove("hidden");
         endOfResultsEl.textContent = "No more results.";
+        updateStats();
         return;
       }
 
@@ -311,22 +323,12 @@
       if (state.renderedCount >= state.filtered.length) {
         document.getElementById("loading-indicator").classList.add("hidden");
         endOfResultsEl.classList.remove("hidden");
+        endOfResultsEl.textContent = "No more results.";
       } else {
         document.getElementById("loading-indicator").classList.add("hidden");
       }
 
       updateStats();
-    }
-
-    function updateStats() {
-      const total = state.items.length;
-      const shown = state.filtered.length;
-      const stats = document.getElementById("stats-text");
-      stats.textContent = `${humanCount(shown)} of ${humanCount(total)} articles shown`;
-    }
-
-    function setStatus(msg) {
-      statusEl.textContent = msg;
     }
 
     // ====================== FILTERING ======================
@@ -341,9 +343,7 @@
       // Recent only (last 30 days)
       if (state.recentOnly) {
         const threshold = computeThresholdDays(30);
-        items = items.filter(
-          (i) => i.published && i.published >= threshold
-        );
+        items = items.filter((i) => i.published && i.published >= threshold);
       }
 
       // Search query
@@ -475,11 +475,10 @@
         applyFilters(true);
       });
 
-      // Infinite scroll (carrega mais apenas depois que o usuário rolar)
+      // Infinite scroll (só ativa depois que o usuário realmente rolar)
       windowEl.addEventListener("scroll", () => {
         const y = windowEl.scrollY || windowEl.pageYOffset || 0;
 
-        // Se ainda não rolou nada, não faz nada
         if (y <= 0 && !hasUserScrolled) {
           return;
         }
@@ -492,7 +491,7 @@
           renderMore();
         }
       });
-
+    }
 
     // ====================== INIT ======================
     document.addEventListener("DOMContentLoaded", () => {
