@@ -26,7 +26,7 @@
         </div>
         <div class="meta-item">
           <span class="meta-label">Time window</span>
-          <span class="meta-value" id="meta-window">last 30 days</span>
+          <span class="meta-value" id="meta-window">last 24 hours</span>
         </div>
       </div>
     </header>
@@ -340,11 +340,12 @@
         items = items.filter((i) => i.category === state.currentType);
       }
 
-      // Recent only (last 30 days)
+      // Recent only (last 24 hours)
       if (state.recentOnly) {
-        const threshold = computeThresholdDays(30);
+        const threshold = new Date(Date.now() - 24 * 60 * 60 * 1000); // 1 day
         items = items.filter((i) => i.published && i.published >= threshold);
       }
+
 
       // Search query
       const q = (state.query || "").trim().toLowerCase();
