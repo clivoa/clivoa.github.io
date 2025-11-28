@@ -206,7 +206,7 @@
       endOfResultsEl.classList.add("hidden");
     }
 
-    function createCard(item) {
+        function createCard(item) {
       const card = document.createElement("article");
       card.className = "card";
 
@@ -252,12 +252,27 @@
           ? item.summary.trim()
           : "No summary available for this entry.";
 
+      // --- Footer com botão "Read full article" ---
+      const footer = document.createElement("div");
+      footer.className = "card-footer";
+
+      const btn = document.createElement("a");
+      btn.className = "card-link-btn";
+      btn.href = item.link || "#";
+      btn.target = "_blank";
+      btn.rel = "noopener noreferrer";
+      btn.textContent = "Read full article";
+
+      footer.appendChild(btn);
+
       card.appendChild(top);
       card.appendChild(title);
       card.appendChild(body);
+      card.appendChild(footer);
 
       return card;
     }
+
 
     function renderMore() {
       if (state.isLoading) return;

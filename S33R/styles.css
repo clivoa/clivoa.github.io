@@ -434,6 +434,40 @@ body {
   color: var(--text-muted);
 }
 
+.card-footer {
+  margin-top: 8px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.card-link-btn {
+  font-size: 0.78rem;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.1s ease, color 0.1s ease, box-shadow 0.1s ease,
+    transform 0.1s ease;
+}
+
+.card-link-btn:hover {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.7);
+  transform: translateY(-1px);
+}
+
+.card-link-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.7);
+}
+
 /* Loading + end of results */
 
 .loading-indicator,
