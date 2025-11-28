@@ -1,5 +1,8 @@
 name: Update news_recent.json
 
+permissions:
+  contents: write
+
 on:
   schedule:
     - cron: "0 * * * *"  # every hour
@@ -27,13 +30,17 @@ jobs:
         run: |
           python S33R/scripts/build_news_json.py
 
-      - name: Commit and push changes
+      - name: Commit changes via GitHub API
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TARGET_BRANCH: dev  # troque para "main" se quiser commitar na main
         run: |
           set -e
 
-          # List modified (tracked) files inside data
+          BRANCH="${TARGET_BRANCH:-main}"
+          REPO="${GITHUB_REPOSITORY}"
+
+          # Lista arquivos modificados dentro de S33R/data
           CHANGED=$(git ls-files -m S33R/data/* || true)
 
           if [ -z "$CHANGED" ]; then
@@ -44,33 +51,43 @@ jobs:
           for file in $CHANGED; do
             echo "Processing $file"
 
-            # Encode content to base64 (required by the GitHub API)
-            CONTENT=$(base64 -w 0 "$file")
+            # Conteúdo em base64 (uma linha só)
+            CONTENT_B64=$(base64 -w0 "$file")
 
-            # Retrieve current file SHA on the dev branch (if it exists)
-            SHA=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-                        "https://api.github.com/repos/${{ github.repository }}/contents/$file?ref=$BRANCH" | jq -r .sha)
+            API_URL="https://api.github.com/repos/$REPO/contents/$file"
 
-            if [ "$SHA" = "null" ] || [ -z "$SHA" ]; then
-              # New file in the repository
-              jq -n \
-                --arg msg "Add $file" \
-                --arg content "$CONTENT" \
-                --arg branch "$BRANCH" \
-                '{message:$msg, content:$content, branch:$branch}' |
-                curl -s -X PUT -H "Authorization: token $GITHUB_TOKEN" -H "Content-Type: application/json" \
-                     --data-binary @- \
-                     "https://api.github.com/repos/${{ github.repository }}/contents/$file"
-            else
-              # Update existing file
-              jq -n \
-                --arg msg "Update $file" \
-                --arg content "$CONTENT" \
-                --arg branch "$BRANCH" \
-                --arg sha "$SHA" \
-                '{message:$msg, content:$content, branch:$branch, sha:$sha}' |
-                curl -s -X PUT -H "Authorization: token $GITHUB_TOKEN" -H "Content-Type: application/json" \
-                     --data-binary @- \
-                     "https://api.github.com/repos/${{ github.repository }}/contents/$file"
+            # Recupera SHA atual (se existir) na branch alvo
+            SHA=$(curl -s \
+              -H "Authorization: token $GITHUB_TOKEN" \
+              "$API_URL?ref=$BRANCH" | jq -r '.sha // empty')
+
+            if [ -z "$SHA" ] || [ "$SHA" = "null" ]; then
+              MSG="Add $file"
+              cat > body.json <<EOF
+            {
+              "message": "$MSG",
+              "content": "$CONTENT_B64",
+              "branch": "$BRANCH"
+            }
+            EOF
+                        else
+                          MSG="Update $file"
+                          cat > body.json <<EOF
+            {
+              "message": "$MSG",
+              "content": "$CONTENT_B64",
+              "branch": "$BRANCH",
+              "sha": "$SHA"
+            }
+            EOF
             fi
+
+            # Faz o PUT na API com o body em arquivo (evita argumento gigante)
+            curl -s -X PUT \
+              -H "Authorization: token $GITHUB_TOKEN" \
+              -H "Content-Type: application/json" \
+              --data-binary @body.json \
+              "$API_URL"
+
+            echo "Done $file"
           done
