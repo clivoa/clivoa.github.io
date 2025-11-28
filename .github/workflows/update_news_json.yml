@@ -32,53 +32,44 @@ jobs:
         run: |
           python S33R/scripts/build_news_json.py
 
-      - name: Commit changes via GitHub API
+      - name: Commit changes via GitHub API (branch master)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TARGET_BRANCH: master   # ou main, se quiser
-        
         run: |
-          set -e
+          set -euo pipefail
           BRANCH="master"
-
-          # List modified (tracked) files inside Lists/ASNs
+ 
           CHANGED=$(git ls-files -m S33R/data/* || true)
-
-          if [ -z "$CHANGED" ]; then
-            echo "No changes detected."
-            exit 0
-          fi
-
+          [ -z "$CHANGED" ] && { echo "No changes detected."; exit 0; }
+ 
           for file in $CHANGED; do
             echo "Processing $file"
-
-            # Encode content to base64 (required by the GitHub API)
-            CONTENT=$(base64 -w 0 "$file")
-
-            # Retrieve current file SHA on the dev branch (if it exists)
+ 
+            # Conteúdo codificado SEM quebras de linha
+            BASE64_CONTENT="$(base64 -w 0 "$file" | tr -d '\n')"
+ 
+            # SHA atual (se houver)
             SHA=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-                        "https://api.github.com/repos/${{ github.repository }}/contents/$file?ref=$BRANCH" | jq -r .sha)
-
-            if [ "$SHA" = "null" ] || [ -z "$SHA" ]; then
-              # New file in the repository
-              jq -n \
-                --arg msg "Add $file" \
-                --arg content "$CONTENT" \
-                --arg branch "$BRANCH" \
-                '{message:$msg, content:$content, branch:$branch}' |
-                curl -s -X PUT -H "Authorization: token $GITHUB_TOKEN" -H "Content-Type: application/json" \
-                     --data-binary @- \
-                     "https://api.github.com/repos/${{ github.repository }}/contents/$file"
+                     "https://api.github.com/repos/${{ github.repository }}/contents/$file?ref=$BRANCH" \
+                     | jq -r .sha)
+ 
+            if [ "${SHA:-null}" = "null" ] || [ -z "$SHA" ]; then
+              # ---------- ARQUIVO NOVO ----------
+              printf '%s\n' "$BASE64_CONTENT" \
+                | jq -Rs --arg msg "Add $file" --arg branch "$BRANCH" \
+                    '{message:$msg, content:., branch:$branch}' \
+                | curl -sS -X PUT -H "Authorization: token $GITHUB_TOKEN" \
+                        -H "Content-Type: application/json" \
+                        --data-binary @- \
+                        "https://api.github.com/repos/${{ github.repository }}/contents/$file"
             else
-              # Update existing file
-              jq -n \
-                --arg msg "Update $file" \
-                --arg content "$CONTENT" \
-                --arg branch "$BRANCH" \
-                --arg sha "$SHA" \
-                '{message:$msg, content:$content, branch:$branch, sha:$sha}' |
-                curl -s -X PUT -H "Authorization: token $GITHUB_TOKEN" -H "Content-Type: application/json" \
-                     --data-binary @- \
-                     "https://api.github.com/repos/${{ github.repository }}/contents/$file"
+              # ---------- ATUALIZA EXISTENTE ----------
+              printf '%s\n' "$BASE64_CONTENT" \
+                | jq -Rs --arg msg "Update $file" --arg branch "$BRANCH" --arg sha "$SHA" \
+                    '{message:$msg, content:., branch:$branch, sha:$sha}' \
+                | curl -sS -X PUT -H "Authorization: token $GITHUB_TOKEN" \
+                        -H "Content-Type: application/json" \
+                        --data-binary @- \
+                        "https://api.github.com/repos/${{ github.repository }}/contents/$file"
             fi
           done
