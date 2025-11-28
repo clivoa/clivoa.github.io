@@ -33,16 +33,44 @@ jobs:
         run: |
           set -e
 
-          # Verifica se houve alteração no arquivo
-          if git status --porcelain -- S33R/data/news_recent.json | grep -q .; then
-            echo "Changes detected in S33R/data/news_recent.json, committing..."
+          # List modified (tracked) files inside data
+          CHANGED=$(git ls-files -m S33R/data//* || true)
 
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-            git add S33R/data/news_recent.json
-            git commit -m "chore: update news_recent.json"
-            git push
-          else
-            echo "No changes to commit"
+          if [ -z "$CHANGED" ]; then
+            echo "No changes detected."
+            exit 0
           fi
+
+          for file in $CHANGED; do
+            echo "Processing $file"
+
+            # Encode content to base64 (required by the GitHub API)
+            CONTENT=$(base64 -w 0 "$file")
+
+            # Retrieve current file SHA on the dev branch (if it exists)
+            SHA=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+                        "https://api.github.com/repos/${{ github.repository }}/contents/$file?ref=$BRANCH" | jq -r .sha)
+
+            if [ "$SHA" = "null" ] || [ -z "$SHA" ]; then
+              # New file in the repository
+              jq -n \
+                --arg msg "Add $file" \
+                --arg content "$CONTENT" \
+                --arg branch "$BRANCH" \
+                '{message:$msg, content:$content, branch:$branch}' |
+                curl -s -X PUT -H "Authorization: token $GITHUB_TOKEN" -H "Content-Type: application/json" \
+                     --data-binary @- \
+                     "https://api.github.com/repos/${{ github.repository }}/contents/$file"
+            else
+              # Update existing file
+              jq -n \
+                --arg msg "Update $file" \
+                --arg content "$CONTENT" \
+                --arg branch "$BRANCH" \
+                --arg sha "$SHA" \
+                '{message:$msg, content:$content, branch:$branch, sha:$sha}' |
+                curl -s -X PUT -H "Authorization: token $GITHUB_TOKEN" -H "Content-Type: application/json" \
+                     --data-binary @- \
+                     "https://api.github.com/repos/${{ github.repository }}/contents/$file"
+            fi
+          done
