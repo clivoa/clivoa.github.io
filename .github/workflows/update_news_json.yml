@@ -30,10 +30,11 @@ jobs:
         run: |
           python S33R/scripts/build_news_json.py
 
-            - name: Commit changes via GitHub API
+      - name: Commit changes via GitHub API
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TARGET_BRANCH: main   # ou main, se quiser
+        
         run: |
           set -e
 
@@ -70,9 +71,9 @@ jobs:
               "branch": "$BRANCH"
             }
             EOF
-                        else
-                          MSG="Update $file"
-                          cat <<EOF > body.json
+            else
+              MSG="Update $file"
+              cat <<EOF > body.json
             {
               "message": "$MSG",
               "content": "$CONTENT_B64",
