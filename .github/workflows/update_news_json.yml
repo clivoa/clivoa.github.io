@@ -24,7 +24,7 @@ jobs:
 
       - name: Build news_recent.json
         run: |
-          python scripts/build_news_json.py
+          python S33R/scripts/build_news_json.py
 
       - name: Commit and push changes
         env:
