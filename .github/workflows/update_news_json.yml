@@ -70,9 +70,9 @@ jobs:
               "branch": "$BRANCH"
             }
             EOF
-                        else
-                          MSG="Update $file"
-                          cat > body.json <<EOF
+            else
+              MSG="Update $file"
+              cat > body.json <<EOF
             {
               "message": "$MSG",
               "content": "$CONTENT_B64",
