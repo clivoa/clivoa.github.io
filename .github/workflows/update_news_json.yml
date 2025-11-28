@@ -33,12 +33,12 @@ jobs:
       - name: Commit changes via GitHub API
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TARGET_BRANCH: main   # ou main, se quiser
+          TARGET_BRANCH: master   # ou main, se quiser
         
         run: |
           set -e
 
-          BRANCH="${TARGET_BRANCH:-main}"
+          BRANCH="${TARGET_BRANCH:-master}"
           REPO="${GITHUB_REPOSITORY}"
 
           # Lista arquivos modificados dentro de S33R/data
