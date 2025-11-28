@@ -373,7 +373,7 @@ body {
   background: rgba(30, 31, 41, 0.98);
   border-radius: var(--radius-lg);
   border: 1px solid rgba(68, 71, 90, 0.95);
-  padding: 12px 14px;
+  padding: 12px 14px 10px;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55);
 }
 
@@ -434,13 +434,18 @@ body {
   color: var(--text-muted);
 }
 
+/* Card footer + Read full article button */
+
 .card-footer {
   margin-top: 8px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 
 .card-link-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;;
   font-size: 0.78rem;
   padding: 5px 12px;
   border-radius: 999px;
