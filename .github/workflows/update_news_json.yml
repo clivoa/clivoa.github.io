@@ -34,7 +34,7 @@ jobs:
           set -e
 
           # List modified (tracked) files inside data
-          CHANGED=$(git ls-files -m S33R/data//* || true)
+          CHANGED=$(git ls-files -m S33R/data/* || true)
 
           if [ -z "$CHANGED" ]; then
             echo "No changes detected."
