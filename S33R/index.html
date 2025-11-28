@@ -11,10 +11,11 @@
   <div class="page">
     <header class="site-header">
       <div class="site-title-block">
-        <div class="badge">Live Feed</div>
+        <div class="badge badge-live">LIVE FEED</div>
         <h1 class="site-title">S33R Security News Feed</h1>
         <p class="site-subtitle muted">
-          Curated security, threat intel, DFIR, vulnerabilities and more – optimized for GitHub Pages.
+          A security news board that aggregates items from multiple public RSS sources.
+          Everything is fetched in your browser – nothing is stored on the server.
         </p>
       </div>
 
@@ -27,14 +28,11 @@
           <span class="meta-label">Time window</span>
           <span class="meta-value" id="meta-window">last 30 days</span>
         </div>
-        <div class="meta-item meta-pill">
-          <span class="meta-dot"></span>
-          <span class="meta-text">Prebuilt JSON + client filters</span>
-        </div>
       </div>
     </header>
 
     <main class="layout">
+      <!-- SEARCH + FILTERS -->
       <section class="controls">
         <div class="filters-row">
           <div class="search-group">
@@ -44,7 +42,7 @@
                 id="news-search-input"
                 type="text"
                 class="filter-input"
-                placeholder="Search in title, summary, source…"
+                placeholder="Search for 0-day, threat actor, CVE-2024-XXXX..."
               />
               <button id="news-search-btn" class="btn-primary">Search</button>
             </div>
@@ -57,16 +55,6 @@
               <option value="oldest">Oldest first</option>
               <option value="source">Source A–Z</option>
             </select>
-          </div>
-        </div>
-
-        <div class="filters-row">
-          <div class="checkbox-group">
-            <label class="checkbox-label">
-              <input type="checkbox" id="recent-only-checkbox" checked />
-              <span class="checkbox-custom"></span>
-              <span class="checkbox-text">Recent only (last 30 days)</span>
-            </label>
           </div>
         </div>
 
@@ -93,15 +81,26 @@
         </div>
       </section>
 
+      <!-- LATEST HEADLINES + RECENT ONLY -->
       <section class="status-bar">
         <div class="status-left">
-          <span id="status-text">Loading news…</span>
+          <span class="status-title">Latest headlines</span>
+          <span class="status-pill">BETA</span>
+          <span id="stats-text" class="status-stats"></span>
         </div>
         <div class="status-right">
-          <span id="stats-text"></span>
+          <label class="checkbox-label checkbox-inline">
+            <input type="checkbox" id="recent-only-checkbox" checked />
+            <span class="checkbox-custom"></span>
+            <span class="checkbox-text">Recent only (last 30 days)</span>
+          </label>
         </div>
       </section>
+      <div class="status-subline">
+        <span id="status-text">Loading news feeds...</span>
+      </div>
 
+      <!-- NEWS LIST -->
       <section class="news-list-container">
         <div id="news-list" class="news-list"></div>
         <div id="loading-indicator" class="loading-indicator">
@@ -264,21 +263,21 @@
       if (state.isLoading) return;
       if (!state.filtered || state.filtered.length === 0) {
         clearList();
-        loadingEl.classList.add("hidden");
+        document.getElementById("loading-indicator").classList.add("hidden");
         endOfResultsEl.classList.remove("hidden");
         endOfResultsEl.textContent = "No results for current filters.";
         return;
       }
 
       if (state.renderedCount >= state.filtered.length) {
-        loadingEl.classList.add("hidden");
+        document.getElementById("loading-indicator").classList.add("hidden");
         endOfResultsEl.classList.remove("hidden");
         endOfResultsEl.textContent = "No more results.";
         return;
       }
 
       state.isLoading = true;
-      loadingEl.classList.remove("hidden");
+      document.getElementById("loading-indicator").classList.remove("hidden");
 
       const nextItems = state.filtered.slice(
         state.renderedCount,
@@ -294,10 +293,10 @@
       state.isLoading = false;
 
       if (state.renderedCount >= state.filtered.length) {
-        loadingEl.classList.add("hidden");
+        document.getElementById("loading-indicator").classList.add("hidden");
         endOfResultsEl.classList.remove("hidden");
       } else {
-        loadingEl.classList.add("hidden");
+        document.getElementById("loading-indicator").classList.add("hidden");
       }
 
       updateStats();
@@ -306,7 +305,8 @@
     function updateStats() {
       const total = state.items.length;
       const shown = state.filtered.length;
-      statsEl.textContent = `${humanCount(shown)} shown / ${humanCount(total)} total`;
+      const stats = document.getElementById("stats-text");
+      stats.textContent = `${humanCount(shown)} of ${humanCount(total)} articles shown`;
     }
 
     function setStatus(msg) {
@@ -381,7 +381,7 @@
     // ====================== DATA LOADING ======================
     async function loadJson() {
       setStatus("Loading prebuilt JSON…");
-      loadingEl.classList.remove("hidden");
+      document.getElementById("loading-indicator").classList.remove("hidden");
 
       const cacheBuster = Date.now();
       const url = `${JSON_URL}?v=${cacheBuster}`;
@@ -484,7 +484,7 @@
       loadJson().catch((err) => {
         console.error("Error loading news JSON", err);
         setStatus("Error while loading news JSON.");
-        loadingEl.classList.add("hidden");
+        document.getElementById("loading-indicator").classList.add("hidden");
         listEl.innerHTML = "";
         const errCard = document.createElement("div");
         errCard.className = "card";

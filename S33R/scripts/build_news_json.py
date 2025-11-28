@@ -3,8 +3,9 @@
 Build a consolidated JSON file with recent security news.
 
 - Reads an OPML file containing RSS feeds (sec_feeds.xml)
+- Walks the OPML tree respecting the actual group structure
+- Assigns categories based on OPML group titles (Crypto, DFIR, Threat Intel, etc.)
 - Fetches all feeds using feedparser
-- Normalizes entries
 - Keeps only last N days (default: 30)
 - Deduplicates by link
 - Writes data/news_recent.json
@@ -16,7 +17,7 @@ import json
 import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List, Optional, Iterable, Tuple
 import xml.etree.ElementTree as ET
 
 import feedparser  # type: ignore
@@ -26,56 +27,125 @@ OPML_PATH = ROOT / "sec_feeds.xml"
 OUTPUT_PATH = ROOT / "data" / "news_recent.json"
 DAYS_BACK = 30
 
-CATEGORY_KEYWORDS = {
-    "crypto": ["crypto", "blockchain"],
-    "cybercrime": ["cybercrime", "darknet"],
-    "dfir": ["dfir", "forensics"],
-    "general": ["general", "security news", "infosec"],
-    "gov_cert": ["cert", "government", "gov"],
-    "leaks": ["leaks", "breaches", "pwned"],
-    "malware": ["malware", "ransomware"],
-    "threat_intel": ["threat intel", "apt", "campaigns"],
-    "malware_analysis": ["malware analysis", "reversing"],
-    "osint": ["osint", "communities"],
-    "podcasts": ["podcast"],
-    "vendors": ["vendor"],
-    "vulns": ["vulnerab", "cve"],
-    "exploits": ["exploit", "0day"],
-    "vuln_advisories": ["advisories", "advisory"],
+# Mapeia os grupos reais do sec_feeds.xml para as categorias usadas no front-end
+GROUP_CATEGORY_MAP: Dict[str, str] = {
+    "Crypto & Blockchain Security": "crypto",
+    "Cybercrime, Darknet & Leaks": "cybercrime",
+    "DFIR & Forensics": "dfir",
+    "General Security & Blogs": "general",
+    "Government, CERT & Advisories": "gov_cert",
+    "Leaks & Breaches": "leaks",
+    "Malware & Threat Research": "malware",  # base (subgrupos refinam)
+    "OSINT, Communities & Subreddits": "osint",
+    "Podcasts & YouTube": "podcasts",
+    "Vendors & Product Blogs": "vendors",
+    "Vulnerabilities, CVEs & Exploits": "vulns",  # base (subgrupos refinam)
+
+    # Subgrupos internos
+    "Threat Intel & APT Campaigns": "threat_intel",
+    "Malware Analysis & Research": "malware_analysis",
+    "Exploits & PoCs": "exploits",
+    "Vulnerability Advisories & Research": "vuln_advisories",
 }
 
 
 def guess_category_from_title(title: str) -> str:
+    """
+    Fallback leve caso o grupo não esteja mapeado explicitamente.
+    Usa só como último recurso.
+    """
     t = title.lower()
-    for cat, keywords in CATEGORY_KEYWORDS.items():
-        if any(k in t for k in keywords):
-            return cat
+    if "crypto" in t or "blockchain" in t:
+        return "crypto"
+    if "darknet" in t or "cybercrime" in t:
+        return "cybercrime"
+    if "dfir" in t or "forensic" in t:
+        return "dfir"
+    if "osint" in t:
+        return "osint"
+    if "podcast" in t or "youtube" in t:
+        return "podcasts"
+    if "vendor" in t or "product" in t:
+        return "vendors"
+    if "exploit" in t or "0day" in t:
+        return "exploits"
+    if "advisories" in t or "advisory" in t:
+        return "vuln_advisories"
+    if "vuln" in t or "cve" in t:
+        return "vulns"
+    if "malware analysis" in t or "reverse" in t:
+        return "malware_analysis"
+    if "malware" in t or "ransomware" in t:
+        return "malware"
+    if "cert" in t or "government" in t or "gov" in t:
+        return "gov_cert"
+    if "leak" in t or "breach" in t:
+        return "leaks"
+    if "threat" in t or "apt" in t or "intel" in t:
+        return "threat_intel"
     return "general"
 
 
-def parse_opml(path: Path):
+def _iter_feeds_from_node(
+    node: ET.Element,
+    ancestors_titles: List[str],
+    current_cat: Optional[str],
+) -> Iterable[Tuple[str, str, str]]:
+    """
+    Caminha recursivamente na árvore de <outline>, respeitando a estrutura.
+
+    - Atualiza a categoria com base em GROUP_CATEGORY_MAP quando encontra
+      um título conhecido (ex: "Threat Intel & APT Campaigns").
+    - Quando encontra um outline com xmlUrl (RSS), emite (feed_title, xmlUrl, category).
+    """
+    title = node.attrib.get("title") or node.attrib.get("text") or ""
+    if title:
+        ancestors_titles = ancestors_titles + [title]
+    else:
+        ancestors_titles = list(ancestors_titles)
+
+    new_cat = current_cat
+
+    # Se o grupo estiver mapeado explicitamente, sobrescreve categoria
+    if title in GROUP_CATEGORY_MAP:
+        new_cat = GROUP_CATEGORY_MAP[title]
+    elif new_cat is None:
+        # Se ainda não há categoria definida, tenta deduzir dos títulos
+        joined = " / ".join(ancestors_titles)
+        new_cat = guess_category_from_title(joined)
+
+    xml_url = node.attrib.get("xmlUrl")
+    if xml_url:
+        feed_title = title or xml_url
+        yield (feed_title, xml_url, new_cat or "general")
+
+    # Recurse nos filhos
+    for child in node.findall("outline"):
+        yield from _iter_feeds_from_node(child, ancestors_titles, new_cat)
+
+
+def parse_opml(path: Path) -> List[Tuple[str, str, str]]:
+    """
+    Lê o sec_feeds.xml e retorna uma lista de
+    (feed_title, xmlUrl, category_code),
+    com categoria baseada na estrutura real do arquivo.
+    """
     tree = ET.parse(path)
     root = tree.getroot()
     body = root.find("body")
     if body is None:
         return []
-    feeds = []
-    seen = set()
-    for elem in body.findall(".//outline"):
-        xml_url = elem.attrib.get("xmlUrl")
-        if not xml_url or xml_url in seen:
-            continue
-        seen.add(xml_url)
-        title = elem.attrib.get("title") or elem.attrib.get("text") or xml_url
-        cat = guess_category_from_title(
-            " / ".join(
-                filter(
-                    None,
-                    [elem.attrib.get("title") or elem.attrib.get("text") or ""],
-                )
-            )
-        )
-        feeds.append((title, xml_url, cat))
+
+    feeds: List[Tuple[str, str, str]] = []
+    seen_urls: set[str] = set()
+
+    for top in body.findall("outline"):
+        for title, xml_url, cat in _iter_feeds_from_node(top, [], None):
+            if xml_url in seen_urls:
+                continue
+            seen_urls.add(xml_url)
+            feeds.append((title, xml_url, cat or "general"))
+
     return feeds
 
 
@@ -94,9 +164,13 @@ def parse_entry(entry, source_title: str, category: str) -> Optional[Dict[str, A
 
     published = None
     if getattr(entry, "published_parsed", None):
-        published = datetime.fromtimestamp(time.mktime(entry.published_parsed), tz=timezone.utc)
+        published = datetime.fromtimestamp(
+            time.mktime(entry.published_parsed), tz=timezone.utc
+        )
     elif getattr(entry, "updated_parsed", None):
-        published = datetime.fromtimestamp(time.mktime(entry.updated_parsed), tz=timezone.utc)
+        published = datetime.fromtimestamp(
+            time.mktime(entry.updated_parsed), tz=timezone.utc
+        )
     else:
         raw_date = entry.get("published") or entry.get("updated")
         if raw_date:
@@ -129,15 +203,26 @@ def main() -> None:
     all_items: Dict[str, Dict[str, Any]] = {}
 
     for idx, (feed_title, xml_url, category) in enumerate(feeds, start=1):
-        print(f"[{idx}/{len(feeds)}] Fetching {feed_title} :: {xml_url}")
-        parsed = feedparser.parse(xml_url)
-        if parsed.bozo:
-            print(f"  [WARN] Problem parsing feed: {xml_url} ({parsed.bozo_exception})")
+        print(f"[{idx}/{len(feeds)}] Fetching {feed_title} :: {xml_url} (cat={category})")
+
+        # Protege contra RemoteDisconnected, timeouts, etc.
+        try:
+            parsed = feedparser.parse(xml_url)
+        except Exception as e:
+            print(f"  [ERROR] Failed fetching feed: {xml_url} ({e})")
+            continue
+
+        if getattr(parsed, "bozo", False):
+            print(
+                f"  [WARN] Problem parsing feed: {xml_url} "
+                f"({getattr(parsed, 'bozo_exception', 'bozo')})"
+            )
 
         for entry in parsed.entries:
             item = parse_entry(entry, source_title=feed_title, category=category)
             if not item:
                 continue
+
             pub_str = item.get("published")
             if pub_str:
                 try:
@@ -149,9 +234,11 @@ def main() -> None:
             else:
                 pub_dt = None
 
+            # Aplica cutoff de data se tivermos published
             if pub_dt and pub_dt < cutoff:
                 continue
 
+            # Dedup pela URL "normalizada"
             link = item["link"].rstrip("/")
             existing = all_items.get(link)
             if existing:
@@ -163,6 +250,7 @@ def main() -> None:
                         existing_dt = None
                 if existing_dt and pub_dt and pub_dt <= existing_dt:
                     continue
+
             all_items[link] = item
 
     items_list: List[Dict[str, Any]] = list(all_items.values())
