@@ -150,6 +150,7 @@
     };
 
     let listEl, loadingEl, endOfResultsEl, statusEl, statsEl, lastUpdateEl, windowEl;
+    let hasUserScrolled = false; // NEW
 
     // ====================== HELPERS ======================
     function parseDate(value) {
@@ -474,15 +475,24 @@
         applyFilters(true);
       });
 
-      // Infinite scroll
+      // Infinite scroll (carrega mais apenas depois que o usuário rolar)
       windowEl.addEventListener("scroll", () => {
-        const scrollPosition = windowEl.scrollY + windowEl.innerHeight;
-        const threshold = document.body.offsetHeight - 400;
+        const y = windowEl.scrollY || windowEl.pageYOffset || 0;
+
+        // Se ainda não rolou nada, não faz nada
+        if (y <= 0 && !hasUserScrolled) {
+          return;
+        }
+        hasUserScrolled = true;
+
+        const scrollPosition = y + windowEl.innerHeight;
+        const threshold = document.documentElement.scrollHeight - 400;
+
         if (scrollPosition >= threshold) {
           renderMore();
         }
       });
-    }
+
 
     // ====================== INIT ======================
     document.addEventListener("DOMContentLoaded", () => {
