@@ -1,8 +1,48 @@
 {
-  "generated_at": "2025-11-29T07:29:01.597393+00:00",
+  "generated_at": "2025-11-29T08:36:02.589719+00:00",
   "days_back": 30,
-  "total_items": 1170,
+  "total_items": 1180,
   "items": [
+    {
+      "title": "HTB CJCA vs OffSec SEC-100",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1p9jsah/htb_cjca_vs_offsec_sec100/",
+      "summary": "Hi everyone, I\u2019m trying to decide between two options as my next step and I\u2019d really like some input from people who\u2019ve actually taken them: Hack The Box \u2013 CJCA OffSec \u2013 SEC-100 (OSCC-SEC) Which one is better as a knowledge foundation for a future blue-team / defensive path \u2013 not talking about brand name, HR filter, or price, only about what I\u2019ll actually learn? My planned direction: Go deeper into blue team / defensive stuff afterwards maybe something like CCDL1 or a similar blue-team cert Try\u2026",
+      "source": "/r/cybersecurity",
+      "category": "osint",
+      "published": "2025-11-29T08:25:20+00:00"
+    },
+    {
+      "title": "Certification/training recommendation",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1p9jq0y/certificationtraining_recommendation/",
+      "summary": "Hey guys, I'm a Junior in Cybersecurity who has completed: - Security+ - Blue Team Level 1 I still feel like I don't know anything... So I'm looking for training specifically. I was considering the CCD or CyberDefenders knew CCD L1 but I'm not really sure Do you guys have any certification recommendations? Or general advice? submitted by /u/WorkingKey4082 [link] [comments]",
+      "source": "/r/cybersecurity",
+      "category": "osint",
+      "published": "2025-11-29T08:21:26+00:00"
+    },
+    {
+      "title": "Spyware Threats Leading to New Smartphone Security Guidelines Issued by CISA",
+      "link": "https://www.news4hackers.com/spyware-threats-leading-to-new-smartphone-security-guidelines-issued-by-cisa/",
+      "summary": "Spyware Threats Leading to New Smartphone Security Guidelines Issued by CISA The U.S. Cybersecurity and... The post Spyware Threats Leading to New Smartphone Security Guidelines Issued by CISA appeared first on .",
+      "source": "News4Hackers",
+      "category": "general",
+      "published": "2025-11-29T07:59:29+00:00"
+    },
+    {
+      "title": "How to make your google account more secure without making it hard",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1p9j0yb/how_to_make_your_google_account_more_secure/",
+      "summary": "Like i want to secure but also i don't want to make it annoying and also that 2fa autheticator google is i see review not great since i can either lost or be gone so ya how do i do that submitted by /u/Personal-Leather-177 [link] [comments]",
+      "source": "/r/cybersecurity",
+      "category": "osint",
+      "published": "2025-11-29T07:39:40+00:00"
+    },
+    {
+      "title": "Why China\u2019s Bitcoin mining activity is surging again after a 4-year crackdown",
+      "link": "https://cointelegraph.com/explained/why-china-s-bitcoin-mining-activity-is-surging-again-after-a-4-year-crackdown?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "summary": "Bitcoin mining in China is rising again. From dominance to ban to resurgence, this makes an engaging story.",
+      "source": "Cointelegraph.com News",
+      "category": "crypto",
+      "published": "2025-11-29T07:30:00+00:00"
+    },
     {
       "title": "Stuck Choosing Between AI and Cybersecurity\u2014Need Some Clear Guidance",
       "link": "https://www.reddit.com/r/cybersecurity/comments/1p9ijki/stuck_choosing_between_ai_and_cybersecurityneed/",
@@ -26,6 +66,14 @@
       "source": "/r/cybersecurity",
       "category": "osint",
       "published": "2025-11-29T06:41:12+00:00"
+    },
+    {
+      "title": "Researchers warn that New Android Malware can Empty Bank Accounts in just a Few Seconds",
+      "link": "https://www.news4hackers.com/researchers-warn-that-new-android-malware-can-empty-bank-accounts-in-just-a-few-seconds/",
+      "summary": "Researchers warn that New Android Malware can Empty Bank Accounts in just a Few Seconds... The post Researchers warn that New Android Malware can Empty Bank Accounts in just a Few Seconds appeared first on .",
+      "source": "News4Hackers",
+      "category": "general",
+      "published": "2025-11-29T06:39:48+00:00"
     },
     {
       "title": "Crypto sentiment moves up from \u2018extreme fear\u2019 after 18-day stretch",
@@ -158,7 +206,7 @@
     {
       "title": "Certifications to get",
       "link": "https://www.reddit.com/r/cybersecurity/comments/1p9e778/certifications_to_get/",
-      "summary": "Hello everyone, I\u2019m a few months into my role as a testing engineer, and I\u2019m considering pursuing another certification next year. Looking ahead, I\u2019m aiming for a management-oriented position or a security consultant role working with clients. I would appreciate any recommendations on certifications that could help me progress in that direction. For now, I only hold the Security+ certification. submitted by /u/EntireStock6964 [link] [comments]",
+      "summary": "Hello everyone, I\u2019m a few months into my role as a testing engineer, and I\u2019m considering pursuing another certification next year. Looking ahead, I\u2019m aiming for a management-oriented position or a security consultant role working with clients. I would appreciate any recommendations on certifications that could help me progress in that direction. For now, I only hold the Security+ certification. Edit: Masters in Cybersecurity submitted by /u/EntireStock6964 [link] [comments]",
       "source": "/r/cybersecurity",
       "category": "osint",
       "published": "2025-11-29T03:15:12+00:00"
@@ -474,14 +522,6 @@
       "source": "Cointelegraph.com News",
       "category": "crypto",
       "published": "2025-11-28T17:30:02+00:00"
-    },
-    {
-      "title": "Looking for self-hosted password manager",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1p90oy9/looking_for_selfhosted_password_manager/",
-      "summary": "The title is self explanatory, I am looking for a solution for a small group of users (around 5), possibly cheap, if not free, that will need to access their passwords both from pc as well as from the mobile. I did some research and found: Bitwarden offers a self-hosted option Vaultwarden also this one should be a good server option that still relies on Bitwarden clients KeePassXC also looks really cool I would really appreciate your recommendations/point of views on the topic. The app will be h\u2026",
-      "source": "/r/cybersecurity",
-      "category": "osint",
-      "published": "2025-11-28T17:28:46+00:00"
     },
     {
       "title": "Japanese beer giant Asahi says ransomware attack may have exposed data of 1.5 million people",
@@ -804,14 +844,6 @@
       "published": "2025-11-28T12:56:41+00:00"
     },
     {
-      "title": "California law regulating web browsers could have national data privacy impact, experts say",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1p8u5rw/california_law_regulating_web_browsers_could_have/",
-      "summary": "submitted by /u/Minute_Pop_877 [link] [comments]",
-      "source": "/r/cybersecurity",
-      "category": "osint",
-      "published": "2025-11-28T12:55:37+00:00"
-    },
-    {
       "title": "Tether confirms Uruguay Bitcoin mining exit amid high energy prices",
       "link": "https://cointelegraph.com/news/tether-confirms-bitcoin-mining-halt-uruguay?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "summary": "Tether halted Bitcoin mining in Uruguay, reportedly dismissing 30 staff amid increasing energy costs and a $4.8 million debt dispute with state power firm UTE.",
@@ -892,14 +924,6 @@
       "published": "2025-11-28T11:29:01+00:00"
     },
     {
-      "title": "Crypto industry pledges over $3M to victims of Hong Kong\u2019s deadliest fire in decades",
-      "link": "https://cointelegraph.com/news/crypto-exchanges-3-2m-donations-hong-kong-fire?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "summary": "The crypto industry rushed to the aid of Hong Kong residents who suffered the city\u2019s most devastating fire in 80 years, claiming the lives of at least 128 people.",
-      "source": "Cointelegraph.com News",
-      "category": "crypto",
-      "published": "2025-11-28T11:28:58+00:00"
-    },
-    {
       "title": "Any Black Friday Deals?",
       "link": "https://www.reddit.com/r/cybersecurity/comments/1p8sgui/any_black_friday_deals/",
       "summary": "Anyone see any Cybersecurity related Black Friday deals? submitted by /u/maritimeminnow [link] [comments]",
@@ -946,14 +970,6 @@
       "source": "Decrypt",
       "category": "crypto",
       "published": "2025-11-28T10:45:23+00:00"
-    },
-    {
-      "title": "MQTT <-> Node.js security",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1p8rv5p/mqtt_nodejs_security/",
-      "summary": "This is probably a trivial question for most of you, but I'm looking for best industry practices here. My product is an IoT robot that needs to connect to our backend through MQTT, probably the server interface will be done in Node.js - bear in mind that I'm a c/c++ software engineer playing for the first time with such things as most of my experience is in audio app development and some firmware with FreeRTOS, I don't need anything extremely secure but I'd like to know what options I have for a\u2026",
-      "source": "/r/cybersecurity",
-      "category": "osint",
-      "published": "2025-11-28T10:45:17+00:00"
     },
     {
       "title": "Do bots use URLs based on Wayback Machine to try to find weaknesses?",
@@ -1106,6 +1122,14 @@
       "source": "Decrypt",
       "category": "crypto",
       "published": "2025-11-28T06:29:38+00:00"
+    },
+    {
+      "title": "ChatGPT Hacked: Names, Email Addresses Revealed; AI Chatbot Responds to Users",
+      "link": "https://www.news4hackers.com/chatgpt-hacked-names-email-addresses-revealed-ai-chatbot-responds-to-users/",
+      "summary": "ChatGPT Hacked Users of OpenAI, take note! Limited API user data, such as names and... The post ChatGPT Hacked: Names, Email Addresses Revealed; AI Chatbot Responds to Users appeared first on .",
+      "source": "News4Hackers",
+      "category": "general",
+      "published": "2025-11-28T06:29:01+00:00"
     },
     {
       "title": "New GreyNoise IP Checker Helps Users Identify Botnet Activity",
@@ -1692,6 +1716,14 @@
       "published": "2025-11-27T08:33:32+00:00"
     },
     {
+      "title": "Amazon Alerts 300 Million Users to Complex Holiday Fraud Efforts",
+      "link": "https://www.news4hackers.com/amazon-alerts-300-million-users-to-complex-holiday-fraud-efforts/",
+      "summary": "Holiday Fraud on 300 million users are alerted by Amazon that sophisticated Black Friday has... The post Amazon Alerts 300 Million Users to Complex Holiday Fraud Efforts appeared first on .",
+      "source": "News4Hackers",
+      "category": "general",
+      "published": "2025-11-27T08:01:57+00:00"
+    },
+    {
       "title": "Clover raises $36 million to scale product security through AI-native design",
       "link": "https://www.helpnetsecurity.com/2025/11/27/clover-funding-36-million/",
       "summary": "Clover announced $36 million in funding to secure the AI-native product wave. The company\u2019s funding round was led by Notable Capital and Team8 with participation from SVCI. Clover Security is also backed by industry heavy weights, including Wiz co-founders Assaf Rappaport and Yinon Costica, Shlomo Kramer of Cato Networks, Rene Bonvanie, and executives from Snyk, CrowdStrike, Palo Alto Networks, Atlassian, and Google. AI is transforming software development, making it faster and more complex than\u2026",
@@ -1722,6 +1754,14 @@
       "source": "Decrypt",
       "category": "crypto",
       "published": "2025-11-27T06:28:06+00:00"
+    },
+    {
+      "title": "FBI Reports $262 Million in ATO Fraud as Researchers Point to an Increase in AI Phishing and Holiday Scams",
+      "link": "https://www.news4hackers.com/fbi-reports-262-million-in-ato-fraud-as-researchers-point-to-an-increase-in-ai-phishing-and-holiday-scams/",
+      "summary": "FBI Reports $262 Million in ATO Fraud as Researchers Point to an Increase in AI... The post FBI Reports $262 Million in ATO Fraud as Researchers Point to an Increase in AI Phishing and Holiday Scams appeared first on .",
+      "source": "News4Hackers",
+      "category": "general",
+      "published": "2025-11-27T06:10:07+00:00"
     },
     {
       "title": "Your critical infrastructure is running out of time",
@@ -2276,6 +2316,14 @@
       "published": "2025-11-26T12:58:18+00:00"
     },
     {
+      "title": "\u2018rn\u2019 replaced by Hackers to \u2018m\u2019 in Microsoft(.)com to Steal Users\u2019 Login Data",
+      "link": "https://www.news4hackers.com/rn-replaced-by-hackers-to-m-in-microsoft-com-to-steal-users-login-data/",
+      "summary": "\u2018rn\u2019 replaced by Hackers to m in Microsoft (.)com to Steal Users\u2019 Login Data \u201cHackers... The post \u2018rn\u2019 replaced by Hackers to \u2018m\u2019 in Microsoft(.)com to Steal Users\u2019 Login Data appeared first on .",
+      "source": "News4Hackers",
+      "category": "general",
+      "published": "2025-11-26T12:47:48+00:00"
+    },
+    {
       "title": "US Investigated Bitcoin Miner Manufacturer Bitmain as National Security Risk: Report",
       "link": "https://decrypt.co/350063/u-s-investigated-bitcoin-miner-manufacturer-bitmain-as-national-security-risk-report",
       "summary": "The DHS has reportedly investigated whether Bitmain can remotely control Bitcoin miners\u2014though experts say it would be hard to do undetected.",
@@ -2290,6 +2338,14 @@
       "source": "Schneier on Security",
       "category": "general",
       "published": "2025-11-26T12:05:14+00:00"
+    },
+    {
+      "title": "Screen-Sharing Trojan Leaked Private Chats on WhatsApp, Telegram, and Signal",
+      "link": "https://www.news4hackers.com/screen-sharing-trojan-leaked-private-chats-on-whatsapp-telegram-and-signal/",
+      "summary": "\u201cLet\u2019s see how a screen-spying trojan really exposed private chats on social media apps!\u201d ThreatFabric... The post Screen-Sharing Trojan Leaked Private Chats on WhatsApp, Telegram, and Signal appeared first on .",
+      "source": "News4Hackers",
+      "category": "general",
+      "published": "2025-11-26T12:01:34+00:00"
     },
     {
       "title": "Cybersecurity Is Now a Core Business Discipline",
@@ -2338,6 +2394,14 @@
       "source": "HackRead",
       "category": "general",
       "published": "2025-11-26T11:14:13+00:00"
+    },
+    {
+      "title": "I4C Issues a Transnational Cybercrime Alert Regarding the WhatsApp Web Accounts Renting",
+      "link": "https://www.news4hackers.com/i4c-issues-a-transnational-cybercrime-alert-regarding-the-whatsapp-web-accounts-renting/",
+      "summary": "I4C Issues a Transnational Cybercrime Alert Regarding the WhatsApp Web Accounts Renting The National Cybercrime... The post I4C Issues a Transnational Cybercrime Alert Regarding the WhatsApp Web Accounts Renting appeared first on .",
+      "source": "News4Hackers",
+      "category": "general",
+      "published": "2025-11-26T11:13:55+00:00"
     },
     {
       "title": "Chrome Extension Caught Injecting Hidden Solana Transfer Fees Into Raydium Swaps",
@@ -3220,6 +3284,14 @@
       "published": "2025-11-24T08:03:00+00:00"
     },
     {
+      "title": "Fake iPhone Offers Made Youth Lose Lakhs on Instagram",
+      "link": "https://www.news4hackers.com/fake-iphone-offers-made-youth-lose-lakhs-on-instagram/",
+      "summary": "Fake iPhone Offers Made Youth Lose Lakhs on Instagram \u201cYouths have been duped over Instagram... The post Fake iPhone Offers Made Youth Lose Lakhs on Instagram appeared first on .",
+      "source": "News4Hackers",
+      "category": "general",
+      "published": "2025-11-24T07:41:12+00:00"
+    },
+    {
       "title": "ShadowPad Malware Actively Exploits WSUS Vulnerability for Full System Access",
       "link": "https://thehackernews.com/2025/11/shadowpad-malware-actively-exploits.html",
       "summary": "A recently patched security flaw in Microsoft Windows Server Update Services (WSUS) has been exploited by threat actors to distribute malware known as ShadowPad. \"The attacker targeted Windows Servers with WSUS enabled, exploiting CVE-2025-59287 for initial access,\" AhnLab Security Intelligence Center (ASEC) said in a report published last week. \"They then used PowerCat, an open-source",
@@ -3274,6 +3346,14 @@
       "source": "Malware Analysis",
       "category": "malware_analysis",
       "published": "2025-11-23T15:11:11+00:00"
+    },
+    {
+      "title": "Annual Information Security Summit 2025 \u2013 New Delhi Aerocity",
+      "link": "https://www.news4hackers.com/annual-information-security-summit-2025-new-delhi/",
+      "summary": "Annual Information Security Summit 2025 Annual Information Security Summit is an annual event that involves... The post Annual Information Security Summit 2025 \u2013 New Delhi Aerocity appeared first on .",
+      "source": "News4Hackers",
+      "category": "general",
+      "published": "2025-11-23T12:51:50+00:00"
     },
     {
       "title": "Week 47 \u2013 2025",
