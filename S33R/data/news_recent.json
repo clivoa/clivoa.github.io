@@ -1,15 +1,31 @@
 {
-  "generated_at": "2025-11-29T06:39:55.535773+00:00",
+  "generated_at": "2025-11-29T07:29:01.597393+00:00",
   "days_back": 30,
-  "total_items": 1161,
+  "total_items": 1170,
   "items": [
     {
-      "title": "Cyber Security",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1p9hgl9/cyber_security/",
-      "summary": "What\u2019s the biggest cybersecurity mistake people still make? submitted by /u/New-Quit-6425 [link] [comments]",
+      "title": "Stuck Choosing Between AI and Cybersecurity\u2014Need Some Clear Guidance",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1p9ijki/stuck_choosing_between_ai_and_cybersecurityneed/",
+      "summary": "While sorting out my major for my upcoming program, I\u2019m debating between AI and Cybersecurity and would like insights grounded in real experience Right now, I\u2019ve got some basic networking knowledge and a bit of coding experience, but nothing advanced. The problem is, I genuinely don\u2019t know which direction makes more sense for me long-term. For those already in the field\u2014or with more experience\u2014how would you approach this decision? What factors should I be looking at? I\u2019d appreciate any straightf\u2026",
       "source": "/r/cybersecurity",
       "category": "osint",
-      "published": "2025-11-29T06:06:27+00:00"
+      "published": "2025-11-29T07:10:23+00:00"
+    },
+    {
+      "title": "Arthur Hayes warns Monad could crash 99%, calls it high-risk \u2018VC coin\u2019",
+      "link": "https://cointelegraph.com/news/arthur-hayes-monad-crash-99-high-risk-vc-coin?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "summary": "Arthur Hayes says Monad\u2019s token structure makes it vulnerable to a brutal selloff, while predicting money printing will fuel the next major crypto rally.",
+      "source": "Cointelegraph.com News",
+      "category": "crypto",
+      "published": "2025-11-29T06:53:49+00:00"
+    },
+    {
+      "title": "how about CCSP and how to pass this exam efficiently",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1p9i22e/how_about_ccsp_and_how_to_pass_this_exam/",
+      "summary": "how about CCSP and how to pass this exam efficiently give me you all ideas pls submitted by /u/Aggressive_Art3677 [link] [comments]",
+      "source": "/r/cybersecurity",
+      "category": "osint",
+      "published": "2025-11-29T06:41:12+00:00"
     },
     {
       "title": "Crypto sentiment moves up from \u2018extreme fear\u2019 after 18-day stretch",
@@ -676,14 +692,6 @@
       "published": "2025-11-28T14:12:29+00:00"
     },
     {
-      "title": "Is a NAS with immutable snapshots and management interface disconnected safe from attack (Ransomware etc)?",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1p8vpox/is_a_nas_with_immutable_snapshots_and_management/",
-      "summary": "I work with large and small customers. Storage with immutable snapshots is out of reach for smaller customers but similar functionality are now available on a Synology NAS. I have a small 5 user client that hosts their own accounting server (for now..will move to the cloud in a few years) and it's time to buy them a new server which is really just a Win 11 PC with RAID 1. This time around I want to use a Synology NAS with RAID, iSCSI, and 30 days of immutable checkpoints and disconnect the manag\u2026",
-      "source": "/r/cybersecurity",
-      "category": "osint",
-      "published": "2025-11-28T14:08:04+00:00"
-    },
-    {
       "title": "Shai-Hulud 2.0: the supply chain attack that learned",
       "link": "https://www.reddit.com/r/netsec/comments/1p8voxq/shaihulud_20_the_supply_chain_attack_that_learned/",
       "summary": "submitted by /u/mabote [link] [comments]",
@@ -924,14 +932,6 @@
       "published": "2025-11-28T11:00:00+00:00"
     },
     {
-      "title": "Wemade rallies partners for KRW stablecoin push after years of setbacks",
-      "link": "https://cointelegraph.com/news/wemade-krw-stablecoin-alliance-gaks-stablenet?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "summary": "Wemade\u2019s new GAKS alliance brings Chainalysis, CertiK and SentBe together to support a compliant KRW stablecoin mainnet after multiple setbacks.",
-      "source": "Cointelegraph.com News",
-      "category": "crypto",
-      "published": "2025-11-28T10:52:59+00:00"
-    },
-    {
       "title": "Do Modern iGaming Platforms Offer Better Cyber Protections Than Traditional Apps?",
       "link": "https://www.itsecurityguru.org/2025/11/28/do-modern-igaming-platforms-offer-better-cyber-protections-than-traditional-apps/?utm_source=rss&utm_medium=rss&utm_campaign=do-modern-igaming-platforms-offer-better-cyber-protections-than-traditional-apps",
       "summary": "Modern iGaming security has evolved quickly, and users notice the difference. Stronger protections, more transparent communication, and more innovative tools give people far more confidence than older platforms ever did. At the same time, the number of online poker sites keeps growing, prompting users to seek more explicit guidance and safer options. This mix of [\u2026] The post Do Modern iGaming Platforms Offer Better Cyber Protections Than Traditional Apps? appeared first on IT Security Guru .",
@@ -1106,14 +1106,6 @@
       "source": "Decrypt",
       "category": "crypto",
       "published": "2025-11-28T06:29:38+00:00"
-    },
-    {
-      "title": "ChatGPT Hacked: Names, Email Addresses Revealed; AI Chatbot Responds to Users",
-      "link": "https://www.news4hackers.com/chatgpt-hacked-names-email-addresses-revealed-ai-chatbot-responds-to-users/",
-      "summary": "ChatGPT Hacked Users of OpenAI, take note! Limited API user data, such as names and... The post ChatGPT Hacked: Names, Email Addresses Revealed; AI Chatbot Responds to Users appeared first on .",
-      "source": "News4Hackers",
-      "category": "general",
-      "published": "2025-11-28T06:29:01+00:00"
     },
     {
       "title": "New GreyNoise IP Checker Helps Users Identify Botnet Activity",
@@ -1684,20 +1676,20 @@
       "published": "2025-11-27T10:00:00+00:00"
     },
     {
+      "title": "State-backed spyware attacks are targeting Signal and WhatsApp users, CISA warns",
+      "link": "https://www.bitdefender.com/en-us/blog/hotforsecurity/state-backed-spyware-attacks-are-targeting-signal-and-whatsapp-users-cisa-warns",
+      "summary": "CISA, the US Cybersecurity and Infrastructure Security Agency, has issued a new warning that cybercriminals and state-backed hacking groups are using spyware to compromise smartphones belonging to users of popular encrypted messaging apps such as Signal, WhatsApp, and Telegram. Read more in my article on the Hot for Security blog.",
+      "source": "Graham Cluley",
+      "category": "general",
+      "published": "2025-11-27T09:28:35+00:00"
+    },
+    {
       "title": "New ASUS firmware patches critical AiCloud vulnerability",
       "link": "https://securityaffairs.com/185109/iot/new-asus-firmware-patches-critical-aicloud-vulnerability.html",
       "summary": "ASUS released new firmware to address multiple vulnerabilities, including a critical authentication bypass flaw in routers with AiCloud enabled. ASUS has issued new firmware addressing nine security vulnerabilities, including a critical authentication bypass, tracked as CVE-2025-59366 (CVSS score of 9.2), affecting routers with AiCloud enabled. \u201cResearchers have reported potential vulnerabilities in ASUS Router. ASUS has [\u2026]",
       "source": "Security Affairs",
       "category": "general",
       "published": "2025-11-27T08:33:32+00:00"
-    },
-    {
-      "title": "Amazon Alerts 300 Million Users to Complex Holiday Fraud Efforts",
-      "link": "https://www.news4hackers.com/amazon-alerts-300-million-users-to-complex-holiday-fraud-efforts/",
-      "summary": "Holiday Fraud on 300 million users are alerted by Amazon that sophisticated Black Friday has... The post Amazon Alerts 300 Million Users to Complex Holiday Fraud Efforts appeared first on .",
-      "source": "News4Hackers",
-      "category": "general",
-      "published": "2025-11-27T08:01:57+00:00"
     },
     {
       "title": "Clover raises $36 million to scale product security through AI-native design",
@@ -1730,14 +1722,6 @@
       "source": "Decrypt",
       "category": "crypto",
       "published": "2025-11-27T06:28:06+00:00"
-    },
-    {
-      "title": "FBI Reports $262 Million in ATO Fraud as Researchers Point to an Increase in AI Phishing and Holiday Scams",
-      "link": "https://www.news4hackers.com/fbi-reports-262-million-in-ato-fraud-as-researchers-point-to-an-increase-in-ai-phishing-and-holiday-scams/",
-      "summary": "FBI Reports $262 Million in ATO Fraud as Researchers Point to an Increase in AI... The post FBI Reports $262 Million in ATO Fraud as Researchers Point to an Increase in AI Phishing and Holiday Scams appeared first on .",
-      "source": "News4Hackers",
-      "category": "general",
-      "published": "2025-11-27T06:10:07+00:00"
     },
     {
       "title": "Your critical infrastructure is running out of time",
@@ -1794,6 +1778,14 @@
       "source": "/r/netsec",
       "category": "osint",
       "published": "2025-11-27T00:57:11+00:00"
+    },
+    {
+      "title": "Smashing Security podcast #445: The hack that brought back the zombie apocalypse",
+      "link": "https://grahamcluley.com/smashing-security-podcast-445/",
+      "summary": "America's airwaves are haunted by zombies again, as we dig into a decade of broadcasters leaving their hardware open to attack, giving hackers the chance to hijack TV shows, blast out fake emergency alerts, and even replace religious sermons with explicit furry podcasts. Meanwhile, we look at how a worker at a cybersecurity firm allegedly leaked internal information to a hacking gang - raising big questions about insider threats. Plus: Frankenstein on Netflix, Vine nostalgia, and why Barney the\u2026",
+      "source": "Graham Cluley",
+      "category": "general",
+      "published": "2025-11-27T00:34:24+00:00"
     },
     {
       "title": "Shai-hulud 2.0 Campaign Targets Cloud and Developer Ecosystems",
@@ -2140,6 +2132,14 @@
       "published": "2025-11-26T14:59:10+00:00"
     },
     {
+      "title": "Shadow AI security breaches will hit 40% of all companies by 2030, warns Gartner",
+      "link": "https://www.fortra.com/blog/shadow-ai-security-breaches-will-hit-40-companies-2030-warns-gartner",
+      "summary": "Shadow AI - the use of artificial intelligence tools by employees without a company's approval and oversight - is becoming a significant cybersecurity risk. Read more in my article on the Fortra blog.",
+      "source": "Graham Cluley",
+      "category": "general",
+      "published": "2025-11-26T14:48:30+00:00"
+    },
+    {
       "title": "Morning Minute: Polymarket Gets the Green Light; Kalshi Hits a Wall",
       "link": "https://decrypt.co/350076/morning-minute-polymarket-gets-the-green-light-kalshi-hits-a-wall",
       "summary": "Mixed news for prediction markets as the CFTC approved Polymarket, while a Nevada ruling set back Kalshi and likely the sector in the U.S.",
@@ -2276,14 +2276,6 @@
       "published": "2025-11-26T12:58:18+00:00"
     },
     {
-      "title": "\u2018rn\u2019 replaced by Hackers to \u2018m\u2019 in Microsoft(.)com to Steal Users\u2019 Login Data",
-      "link": "https://www.news4hackers.com/rn-replaced-by-hackers-to-m-in-microsoft-com-to-steal-users-login-data/",
-      "summary": "\u2018rn\u2019 replaced by Hackers to m in Microsoft (.)com to Steal Users\u2019 Login Data \u201cHackers... The post \u2018rn\u2019 replaced by Hackers to \u2018m\u2019 in Microsoft(.)com to Steal Users\u2019 Login Data appeared first on .",
-      "source": "News4Hackers",
-      "category": "general",
-      "published": "2025-11-26T12:47:48+00:00"
-    },
-    {
       "title": "US Investigated Bitcoin Miner Manufacturer Bitmain as National Security Risk: Report",
       "link": "https://decrypt.co/350063/u-s-investigated-bitcoin-miner-manufacturer-bitmain-as-national-security-risk-report",
       "summary": "The DHS has reportedly investigated whether Bitmain can remotely control Bitcoin miners\u2014though experts say it would be hard to do undetected.",
@@ -2298,14 +2290,6 @@
       "source": "Schneier on Security",
       "category": "general",
       "published": "2025-11-26T12:05:14+00:00"
-    },
-    {
-      "title": "Screen-Sharing Trojan Leaked Private Chats on WhatsApp, Telegram, and Signal",
-      "link": "https://www.news4hackers.com/screen-sharing-trojan-leaked-private-chats-on-whatsapp-telegram-and-signal/",
-      "summary": "\u201cLet\u2019s see how a screen-spying trojan really exposed private chats on social media apps!\u201d ThreatFabric... The post Screen-Sharing Trojan Leaked Private Chats on WhatsApp, Telegram, and Signal appeared first on .",
-      "source": "News4Hackers",
-      "category": "general",
-      "published": "2025-11-26T12:01:34+00:00"
     },
     {
       "title": "Cybersecurity Is Now a Core Business Discipline",
@@ -2354,14 +2338,6 @@
       "source": "HackRead",
       "category": "general",
       "published": "2025-11-26T11:14:13+00:00"
-    },
-    {
-      "title": "I4C Issues a Transnational Cybercrime Alert Regarding the WhatsApp Web Accounts Renting",
-      "link": "https://www.news4hackers.com/i4c-issues-a-transnational-cybercrime-alert-regarding-the-whatsapp-web-accounts-renting/",
-      "summary": "I4C Issues a Transnational Cybercrime Alert Regarding the WhatsApp Web Accounts Renting The National Cybercrime... The post I4C Issues a Transnational Cybercrime Alert Regarding the WhatsApp Web Accounts Renting appeared first on .",
-      "source": "News4Hackers",
-      "category": "general",
-      "published": "2025-11-26T11:13:55+00:00"
     },
     {
       "title": "Chrome Extension Caught Injecting Hidden Solana Transfer Fees Into Raydium Swaps",
@@ -2602,6 +2578,14 @@
       "source": "Malwarebytes Labs",
       "category": "general",
       "published": "2025-11-25T16:08:03+00:00"
+    },
+    {
+      "title": "The AI Fix #78: The big AI bubble, and robot Grandma in the cloud",
+      "link": "https://grahamcluley.com/the-ai-fix-78/",
+      "summary": "In episode 78 of The AI Fix, alien robot spiders invade Antarctica (or Facebook says they do), Mark prepares humanity for AI-powered fighter jets with loyalty issues, and Graham tries to work out why his AI-generated country music career hasn't yet paid for even a Tesco Meal Deal. Anthropic claims it has caught the first autonomous AI cyber-spy... but fails to provide much in the way of evidence, Claude hallucinates its way through espionage, and China allegedly uses American AI for hacking. Mar\u2026",
+      "source": "Graham Cluley",
+      "category": "general",
+      "published": "2025-11-25T15:30:05+00:00"
     },
     {
       "title": "\ubd88\ubc95\uc74c\uc6d0 MP3 \ud30c\uc77c\ub85c \uc720\ud3ec \ub418\ub294 \uc545\uc131\ucf54\ub4dc-Gosisong_ada.mp3",
@@ -3220,20 +3204,20 @@
       "published": "2025-11-24T09:59:16+00:00"
     },
     {
+      "title": "Operation Endgame disrupts Rhadamanthys information-stealing malware",
+      "link": "https://www.bitdefender.com/en-us/blog/hotforsecurity/operation-endgame-disrupts-rhadamanthys-information-stealing-malware",
+      "summary": "International cybercrime-fighting agencies, co-ordinated by Europol, took down over 1000 servers and seized 20 domains earlier this month as part of Operation Endgame 3.0. Their target? Three major malware platforms: the infostealer known as Rhadamanthys, the VenomRAT remote access trojan, and the Elysium botnet. Read more in my article on the Hot for Security blog.",
+      "source": "Graham Cluley",
+      "category": "general",
+      "published": "2025-11-24T08:41:44+00:00"
+    },
+    {
       "title": "A week in security (November 17 &#8211; November 23)",
       "link": "https://www.malwarebytes.com/blog/news/2025/11/a-week-in-security-november-17-november-23",
       "summary": "A list of topics we covered in the week of November 17 to November 23 of 2025",
       "source": "Malwarebytes Labs",
       "category": "general",
       "published": "2025-11-24T08:03:00+00:00"
-    },
-    {
-      "title": "Fake iPhone Offers Made Youth Lose Lakhs on Instagram",
-      "link": "https://www.news4hackers.com/fake-iphone-offers-made-youth-lose-lakhs-on-instagram/",
-      "summary": "Fake iPhone Offers Made Youth Lose Lakhs on Instagram \u201cYouths have been duped over Instagram... The post Fake iPhone Offers Made Youth Lose Lakhs on Instagram appeared first on .",
-      "source": "News4Hackers",
-      "category": "general",
-      "published": "2025-11-24T07:41:12+00:00"
     },
     {
       "title": "ShadowPad Malware Actively Exploits WSUS Vulnerability for Full System Access",
@@ -3292,14 +3276,6 @@
       "published": "2025-11-23T15:11:11+00:00"
     },
     {
-      "title": "Annual Information Security Summit 2025 \u2013 New Delhi Aerocity",
-      "link": "https://www.news4hackers.com/annual-information-security-summit-2025-new-delhi/",
-      "summary": "Annual Information Security Summit 2025 Annual Information Security Summit is an annual event that involves... The post Annual Information Security Summit 2025 \u2013 New Delhi Aerocity appeared first on .",
-      "source": "News4Hackers",
-      "category": "general",
-      "published": "2025-11-23T12:51:50+00:00"
-    },
-    {
       "title": "Week 47 \u2013 2025",
       "link": "https://thisweekin4n6.com/2025/11/23/week-47-2025/",
       "summary": "Inside the Salesloft-Drift Breach: What It Means for SaaS & Identity Security In this session, Permiso\u2019s CTO will cover:\u2013 How attackers moved from GitHub \u2192 AWS \u2192 Salesforce using stolen OAuth tokens.\u2013 Why this \u201call-machine\u201d attack is a wake-up call for SaaS supply chains and NHIs.\u2013 Practical steps to detect and contain similar threats in [\u2026]",
@@ -3338,14 +3314,6 @@
       "source": "/r/netsec",
       "category": "osint",
       "published": "2025-11-23T10:19:58+00:00"
-    },
-    {
-      "title": "APT31 Sneaky Cyberattacks on Russian IT Using Cloud Services: China-Linked Attacks",
-      "link": "https://www.news4hackers.com/apt31-sneaky-cyberattacks-on-russian-it-using-cloud-services-china-linked-attacks/",
-      "summary": "\u201cThere are huge sneaky cyberattacks run by Chinese APT31 on russian IT using cloud services.\u201d... The post APT31 Sneaky Cyberattacks on Russian IT Using Cloud Services: China-Linked Attacks appeared first on .",
-      "source": "News4Hackers",
-      "category": "general",
-      "published": "2025-11-23T10:03:43+00:00"
     },
     {
       "title": "Fire alert: the fake \u2018Amazon TV stick\u2019 that opens the door to fraudsters",
@@ -3644,14 +3612,6 @@
       "published": "2025-11-21T10:00:33+00:00"
     },
     {
-      "title": "Google Update: Nano Banana 2 Trend Taking Over the Internet",
-      "link": "https://www.news4hackers.com/google-update-nano-banana-2-trend-taking-over-the-internet/",
-      "summary": "\u201cConcerns about privacy and deepfakes are raised by Google DeepMind\u2019s Nano Banana 2, a 4K... The post Google Update: Nano Banana 2 Trend Taking Over the Internet appeared first on .",
-      "source": "News4Hackers",
-      "category": "general",
-      "published": "2025-11-21T09:57:37+00:00"
-    },
-    {
       "title": "Use of CSS stuffing as an obfuscation technique&#x3f;, (Fri, Nov 21st)",
       "link": "https://isc.sans.edu/diary/rss/32510",
       "summary": "From time to time, it can be instructive to look at generic phishing messages that are delivered to one's inbox or that are caught by basic spam filters. Although one usually doesn't find much of interest, sometimes these little excursions into what should be a run-of-the-mill collection of basic, commonly used phishing techniques can lead one to find something new and unusual. This was the case with one of the messages delivered to our handler inbox yesterday\u00e2\u20ac\u00a6",
@@ -3810,6 +3770,14 @@
       "source": "Zscaler Research Blogs",
       "category": "threat_intel",
       "published": "2025-11-20T17:15:04+00:00"
+    },
+    {
+      "title": "UK\u2019s new cybersecurity bill takes aim at ransomware gangs and state-backed hackers",
+      "link": "https://www.fortra.com/blog/uks-new-cybersecurity-bill-takes-aim-ransomware-gangs-state-backed-hackers",
+      "summary": "After years of delays, the UK government has finally introduced landmark cybersecurity legislation that could reshape how British organisations defend against digital attacks. Read more in my article on the Fortra blog.",
+      "source": "Graham Cluley",
+      "category": "general",
+      "published": "2025-11-20T17:13:53+00:00"
     },
     {
       "title": "How to update CRLs without public access using AWS Private CA",
@@ -4028,6 +3996,14 @@
       "published": "2025-11-20T10:48:08+00:00"
     },
     {
+      "title": "Wind farm worker sentenced after turning turbines into a secret crypto mine",
+      "link": "https://www.bitdefender.com/en-us/blog/hotforsecurity/wind-farm-worker-sentenced-after-turning-turbines-into-a-secret-crypto-mine",
+      "summary": "A technical manager at a Dutch wind farm operator has been sentenced after it was discovered he had secretly installed cryptocurrency mining rigs at two wind farm sites - just as the company was recovering from a ransomware attack. Read more in my article on the Hot for Security blog.",
+      "source": "Graham Cluley",
+      "category": "general",
+      "published": "2025-11-20T10:31:15+00:00"
+    },
+    {
       "title": "Blockchain and Node.js abused by Tsundere: an emerging botnet",
       "link": "https://securelist.com/tsundere-node-js-botnet-uses-ethereum-blockchain/117979/",
       "summary": "Kaspersky GReAT experts discovered a new campaign featuring the Tsundere botnet. Node.js-based bots abuse web3 smart contracts and are spread via MSI installers and PowerShell scripts.",
@@ -4050,6 +4026,14 @@
       "source": "WeLiveSecurity \u2013 ESET Blog",
       "category": "malware_analysis",
       "published": "2025-11-20T10:00:00+00:00"
+    },
+    {
+      "title": "Smashing Security podcast #444: We\u2019re sorry. Wait, did a company actually say that?",
+      "link": "https://grahamcluley.com/smashing-security-podcast-444/",
+      "summary": "Stop the press - a company has actually said \"sorry\" after a data breach, and hotels are helping hackers phish their own guests. We examine a refreshingly honest breach response (and why legacy systems are still going to ruin your week), dig into a nasty hotel-booking malware campaign that abuses trust in apps and CAPTCHAs, and chat about autonomous pen testing, AI-turbocharged cybercrime, and what CISOs should really be asking on Monday morning. And lost Doctor Who is brought back to life by on\u2026",
+      "source": "Graham Cluley",
+      "category": "general",
+      "published": "2025-11-20T09:29:54+00:00"
     },
     {
       "title": "DetectionStream Just Got a Major Upgrade: Suricata Integration is Here!",
@@ -4612,6 +4596,14 @@
       "published": "2025-11-18T15:59:07+00:00"
     },
     {
+      "title": "The AI Fix #77: Genome LLM makes a super-virus, and should AI decide if you live?",
+      "link": "https://grahamcluley.com/the-ai-fix-77/",
+      "summary": "In episode 77 of The AI Fix, a language model trained on genomes that creates a super-virus, Graham wonders whether AI should be allowed to decide if we live or die, and a woman marries ChatGPT (and calls it \u201cKlaus\u201d). Also in this episode: In Russia a robot staggers, falls over, and breaks; MIT quietly withdraws a ludicrously bad cybersecurity paper; the founder of a $1 billion AI company reveals his first AI was just two dudes on a Zoom call, and a futurologist reveals eight things we\u2019ll be doi\u2026",
+      "source": "Graham Cluley",
+      "category": "general",
+      "published": "2025-11-18T15:35:13+00:00"
+    },
+    {
       "title": "Microsoft Azure Fends Off \u2018Largest DDoS Attack Ever Observed in the Cloud\u2019",
       "link": "https://www.techrepublic.com/article/microsoft-azure-attack-aisuru-botnet/",
       "summary": "Microsoft confirmed that Azure blocked a denial-of-service attack that involved more than 500,000 IP addresses spread across multiple regions. The post Microsoft Azure Fends Off \u2018Largest DDoS Attack Ever Observed in the Cloud\u2019 appeared first on TechRepublic .",
@@ -4730,6 +4722,14 @@
       "source": "Decrypt",
       "category": "crypto",
       "published": "2025-11-18T11:27:28+00:00"
+    },
+    {
+      "title": "A miracle: A company says sorry after a cyber attack \u2013 and donates the ransom to cybersecurity research",
+      "link": "https://www.bitdefender.com/en-us/blog/hotforsecurity/a-miracle-a-company-says-sorry-after-a-cyber-attack-and-donates-the-ransom-to-cybersecurity-research",
+      "summary": "One of the sad truths about this world of seemingly endless hacks and data breaches is that companies just won't apologise. Even when customers, partners, and employees are left wondering when their data will be published by malicious hackers on the dark web, breached organisations will seemingly do everything they can to avoid saying what seems to be the hardest word of all: sorry. Read more in my article on the Hot for Security blog.",
+      "source": "Graham Cluley",
+      "category": "general",
+      "published": "2025-11-18T09:54:01+00:00"
     },
     {
       "title": "Cloudflare outage on November 18, 2025",
@@ -5372,6 +5372,14 @@
       "published": "2025-11-13T08:49:37+00:00"
     },
     {
+      "title": "Smashing Security podcast #443: Tinder\u2019s camera roll and the Buffett deepfake",
+      "link": "https://grahamcluley.com/smashing-security-podcast-443/",
+      "summary": "Tinder has got a plan to rummage through your camera roll, and Warren Buffett keeps popping up in convincing deepfakes dishing \"number one investment tips.\" Meanwhile, will agentic AI replace your co-hosts before you can say \"EDR for robots\"? and why you should still read books. All this, plus Lily Allen's new album and Claude Code come up for discussion in episode 443 of the \"Smashing Security\" podcast, with special guest Ron Eddings.",
+      "source": "Graham Cluley",
+      "category": "general",
+      "published": "2025-11-13T00:25:57+00:00"
+    },
+    {
       "title": "Third-Party Risk Statistics",
       "link": "https://www.recordedfuture.com/blog/third-party-risk-statistics",
       "summary": "Explore the latest third-party risk statistics and learn how data-driven, continuous monitoring for third-party risk assessments can protect your supply chain..",
@@ -5444,6 +5452,14 @@
       "published": "2025-11-12T14:46:00+00:00"
     },
     {
+      "title": "Leading AI companies accidentally leak their passwords and digital keys on GitHub \u2013 what you need to know",
+      "link": "https://www.fortra.com/blog/ai-companies-accidentally-leak-passwords-digital-keys-github",
+      "summary": "Many of the world's top artificial intelligence companies are making a simple but dangerous mistake. They are accidentally publishing their passwords and digital keys on GitHub, the popular code-sharing website that is used by millions of developers every day. Read more in my article on the Fortra blog.",
+      "source": "Graham Cluley",
+      "category": "general",
+      "published": "2025-11-12T14:45:01+00:00"
+    },
+    {
       "title": "Authenticate Update 39075: Deepfake Detection has a New Dress and is Now Available in the Smart Report, Improved GUI and Report, and More!",
       "link": "https://blog.ampedsoftware.com/2025/11/12/authenticate-update-39075",
       "summary": "Reading time: 7 min This fall\u2019s Authenticate update brings great improvements to our deepfake detection features, with the ability to run deepfake detection on batches of images and from within the Smart Report! Dear friends, here we are again, presenting a new update to Amped Authenticate! As usual, we\u2019ve been inspired by the requests coming from you, our loved [\u2026]https://blog.ampedsoftware.com/wp-content/uploads/2025/11/Authenticate-update-39075-1.png The post Authenticate Update 39075: Deepfa\u2026",
@@ -5506,6 +5522,14 @@
       "source": "US-CERT \u2013 Current Activity",
       "category": "gov_cert",
       "published": "2025-11-12T12:00:00+00:00"
+    },
+    {
+      "title": "Russian hacker admits helping Yanluowang ransomware infect companies",
+      "link": "https://www.bitdefender.com/en-us/blog/hotforsecurity/russian-hacker-admits-helping-yanluowang-ransomware-infect-companies",
+      "summary": "A Russian hacker accused of helping ransomware gangs break into businesses across the United States is set to plead guilty, according to recently filed federal court documents. 25-year-old Aleksey Olegovich Volkov worked as an \"initial access broker\", a cybercriminal specialist who focuses on the earliest stage of an attack: gaining the first foothold inside a victim's network. Read more in my article on the Hot for Security blog.",
+      "source": "Graham Cluley",
+      "category": "general",
+      "published": "2025-11-12T10:15:18+00:00"
     },
     {
       "title": "This Is the Platform Google Claims Is Behind a 'Staggering\u2019 Scam Text Operation",
@@ -5644,6 +5668,14 @@
       "published": "2025-11-11T16:16:17+00:00"
     },
     {
+      "title": "The AI Fix #76: AI self-awareness, and the death of comedy",
+      "link": "https://grahamcluley.com/the-ai-fix-76/",
+      "summary": "In episode 76 of The AI Fix, two US federal judges blame AI for imaginary case law, a Chinese \"humanoid\" dramatically sheds its skin onstage, Toyota unveils a crabby walking chair creeps us out, Google plans AI chips in orbit, robot dogs get jobs at Sellafield, and AI writes cruise-ship gags from the 1950s (but a little less racist.) Plus: Graham gives all his credit card numbers away in an attempt to buy AI-generated jokes, and Mark asks a terrifying question: if you make an LLM \u201cnotice its not\u2026",
+      "source": "Graham Cluley",
+      "category": "general",
+      "published": "2025-11-11T15:27:25+00:00"
+    },
+    {
       "title": "Introducing HTTP Anomaly Rank",
       "link": "https://portswigger.net/research/introducing-http-anomaly-rank",
       "summary": "HTTP Anomaly Rank If you've ever used Burp Intruder or Turbo Intruder, you'll be familiar with the ritual of manually digging through thousands of responses by repeatedly sorting the table via length,",
@@ -5770,6 +5802,14 @@
       "source": "VirusTotal Blog",
       "category": "malware_analysis",
       "published": "2025-11-10T11:56:00+00:00"
+    },
+    {
+      "title": "Hack halts Dutch broadcaster, forcing radio hosts back to LPs",
+      "link": "https://www.bitdefender.com/en-us/blog/hotforsecurity/hack-halts-dutch-broadcaster-forcing-radio-hosts-back-to-lps",
+      "summary": "A Dutch TV and radio broadcaster has found itself at the mercy of cybercriminals after suffering a cyber attack, and leaving it scrambling to find ways to play music to its listeners. Read more in my article on the Hot for Security blog.",
+      "source": "Graham Cluley",
+      "category": "general",
+      "published": "2025-11-10T09:35:07+00:00"
     },
     {
       "title": "The reality: Bargains bring risk",
@@ -5972,6 +6012,22 @@
       "published": "2025-11-06T19:00:14+00:00"
     },
     {
+      "title": "The rising tide of cyber attacks against the UK water sector",
+      "link": "https://www.fortra.com/blog/rising-tide-cyber-attacks-against-uk-water-sector",
+      "summary": "Critical infrastructure is once again in the spotlight, as it is revealed that several UK water suppliers have reported cybersecurity incidents over the last two years. Read more in my article on the Fortra blog.",
+      "source": "Graham Cluley",
+      "category": "general",
+      "published": "2025-11-06T17:43:47+00:00"
+    },
+    {
+      "title": "\u201cPay up or we share the tapes\u201d: Hackers target massage parlour clients in blackmail scheme",
+      "link": "https://www.bitdefender.com/en-us/blog/hotforsecurity/pay-up-or-we-share-the-tapes-hackers-target-massage-parlour-clients-in-blackmail-scheme",
+      "summary": "South Korean police have uncovered a hacking operation that stole sensitive data from massage parlours and blackmailed their male clientele. Read more in my article on the Hot for Security blog.",
+      "source": "Graham Cluley",
+      "category": "general",
+      "published": "2025-11-06T17:33:04+00:00"
+    },
+    {
       "title": "Mobile, IoT, and OT Risks Converge in the Public Sector",
       "link": "https://www.zscaler.com/blogs/security-research/mobile-iot-and-ot-risks-converge-public-sector",
       "summary": "Connected technology is central to how governments, healthcare providers, and schools operate today. We see it all around us: public safety cameras across cities, medical devices in hospitals, and digital learning tools used in classrooms every day. But with this dependence comes exposure and risk.Threat actors are increasingly targeting vulnerabilities in mobile devices, IoT systems, and legacy OT environments to gain access to critical environments. And few sectors face higher stakes than the\u2026",
@@ -6098,6 +6154,14 @@
       "source": "Have I Been Pwned \u2013 Latest Breaches",
       "category": "leaks",
       "published": "2025-11-06T04:58:49+00:00"
+    },
+    {
+      "title": "Smashing Security podcast #442: The hack that messed with time, and rogue ransom where negotiators",
+      "link": "https://grahamcluley.com/smashing-security-podcast-442/",
+      "summary": "Time itself comes under attack as a state-backed hacking gang spends two years tunnelling toward a nation\u2019s master clock \u2014 with chaos potentially only a tick away. Plus when ransomware negotiators turn to the dark side, what could possibly go wrong? All this and more is discussed in episode 442 of the \"Smashing Security\" podcast with cybersecurity veteran Graham Cluley, and special guest Dave Bittner.",
+      "source": "Graham Cluley",
+      "category": "general",
+      "published": "2025-11-06T00:30:28+00:00"
     },
     {
       "title": "Malicious Infrastructure Finds Stability with aurologic GmbH",
@@ -6418,6 +6482,14 @@
       "source": "SOC Prime Blog",
       "category": "vendors",
       "published": "2025-11-04T15:38:52+00:00"
+    },
+    {
+      "title": "The AI Fix #75: Claude\u2019s existential battery crisis, and why ChatGPT is a terrible therapist",
+      "link": "https://grahamcluley.com/the-ai-fix-75/",
+      "summary": "In episode 75 of The AI Fix, a Claude-powered robot gets so anxious about its dying battery that it composes a Broadway musical about stress and announces it\u2019s \u201cachieved consciousness and chosen chaos.\u201d Also: an 18-month psychological study reveals five reasons why ChatGPT is a dangerously bad therapist, Elon Musk\u2019s million-robot army, a politician loses a debate with a dreadful AI deepfake, a tiny robot walks off with a 1.5-ton car, and we discover that the 1X NEO home help robot really does ha\u2026",
+      "source": "Graham Cluley",
+      "category": "general",
+      "published": "2025-11-04T15:30:06+00:00"
     },
     {
       "title": "TruffleHog, Fade In and BSAFE Crypto-C vulnerabilities",
@@ -7012,6 +7084,14 @@
       "published": "2025-10-30T16:59:00+00:00"
     },
     {
+      "title": "Spam text scammer fined \u00a3200,000 for targeting people in debt, after sending nearly one million messages",
+      "link": "https://www.bitdefender.com/en-us/blog/hotforsecurity/spam-text-scammer-fined-200-000-for-targeting-people-in-debt-after-sending-nearly-one-million-messages",
+      "summary": "The UK Information Commissioner\u2019s Office (ICO) has levied a fine of \u00a3200,000 against a sole trader who sent almost one million spam text messages to people across the country - many of whom were already struggling with debt. Read more in my article on the Hot for Security blog.",
+      "source": "Graham Cluley",
+      "category": "general",
+      "published": "2025-10-30T16:18:34+00:00"
+    },
+    {
       "title": "Eliminate the B2B Connectivity Risk: A Practical Guide to Zero Trust",
       "link": "https://www.zscaler.com/blogs/product-insights/eliminate-b2b-connectivity-risk-practical-guide-zero-trust",
       "summary": "How much would you trust your partner or supplier organization\u2019s security?Every site-to-site VPN connection you establish is an answer to that question.For decades, the default has been network-to-network trust, using firewalls and tunnels that flatten your network and expand the blast radius of any incident. With this architecture, you are implicitly trusting your partner\u2019s patching cadence, firewall rules, and overall security posture.But where you see a business partnership, a sophisticated a\u2026",
@@ -7114,14 +7194,6 @@
       "source": "Cisco Talos Blog",
       "category": "threat_intel",
       "published": "2025-10-30T09:59:32+00:00"
-    },
-    {
-      "title": "Overcome HTTP/2 Complexities with Zscaler",
-      "link": "https://www.zscaler.com/blogs/product-insights/overcome-http-2-complexities-zscaler",
-      "summary": "What is HTTP/2?The Hypertext Transfer Protocol (HTTP) forms the foundation of nearly all web-based communication, enabling computers and servers to exchange information seamlessly. Whenever a user visits a website, their browser relies on HTTP to request the necessary data \u2013 such as text, images, and formatting \u2013 that transforms a server's response into what the user sees displayed. HTTP/1.1 marked a significant step in the protocol\u2019s evolution and continues to be widely utilized today, though i\u2026",
-      "source": "Zscaler Research Blogs",
-      "category": "threat_intel",
-      "published": "2025-10-30T06:56:46+00:00"
     },
     {
       "title": "Bloody Wolf: A Blunt Crowbar Threat To Justice",
