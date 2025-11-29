@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,6 +17,21 @@
       --link: #b300ff;
       --link-hover: #ff00ff;
       --glass: rgba(0, 0, 0, 0.45);
+      --button-bg: rgba(30, 30, 30, 0.9);
+      --button-fg: #e6e6e6;
+      --button-border: #444;
+    }
+
+    /* Light theme overrides */
+    [data-theme="light"] {
+      --bg: #f5f5f5;
+      --fg: #111111;
+      --link: #7a00c2;
+      --link-hover: #ff0099;
+      --glass: rgba(255, 255, 255, 0.85);
+      --button-bg: rgba(245, 245, 245, 0.9);
+      --button-fg: #111111;
+      --button-border: #bbbbbb;
     }
 
     body {
@@ -35,7 +50,7 @@
       position: relative;
     }
 
-    /* Subtle CRT scanlines */
+    /* Subtle CRT scanlines (only really visível no dark) */
     body::after {
       content: "";
       position: absolute;
@@ -48,6 +63,11 @@
         transparent 2px
       );
       mix-blend-mode: overlay;
+      opacity: 0.55;
+    }
+
+    [data-theme="light"] body::after {
+      opacity: 0; /* remove CRT no tema claro */
     }
 
     .ascii-box {
@@ -72,10 +92,59 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* Glitch effect no ASCII */
+    .glitch {
+      position: relative;
+      animation: glitch 2.6s infinite steps(2, end);
+    }
+
+    @keyframes glitch {
+      0% {
+        text-shadow:
+          2px 0 rgba(255, 0, 0, 0.5),
+          -2px 0 rgba(0, 255, 255, 0.5);
+        transform: translate(0, 0);
+      }
+      10% {
+        text-shadow:
+          -3px 0 rgba(255, 0, 0, 0.8),
+          3px 0 rgba(0, 255, 255, 0.8);
+        transform: translate(-1px, 0);
+      }
+      20% {
+        text-shadow:
+          3px 0 rgba(255, 0, 0, 0.4),
+          -3px 0 rgba(0, 255, 255, 0.4);
+        transform: translate(1px, 0);
+      }
+      30% {
+        text-shadow:
+          1px 0 rgba(255, 0, 0, 0.6),
+          -1px 0 rgba(0, 255, 255, 0.6);
+        transform: translate(0, 1px);
+      }
+      40% {
+        text-shadow:
+          -1px 0 rgba(255, 0, 0, 0.3),
+          1px 0 rgba(0, 255, 255, 0.3);
+        transform: translate(0, -1px);
+      }
+      50% {
+        text-shadow: none;
+        transform: translate(0, 0);
+      }
+      100% {
+        text-shadow: none;
+        transform: translate(0, 0);
+      }
+    }
+
     /* Links */
     p {
       margin-top: 1rem;
       font-size: 1.1rem;
+      position: relative;
+      z-index: 1;
     }
 
     a {
@@ -107,19 +176,57 @@
       animation: typing 2s steps(19), blink 0.8s infinite step-end alternate;
       margin: 0 auto 0.4rem auto;
       text-align: center;
+      position: relative;
+      z-index: 1;
     }
 
     @keyframes typing { from { width: 0 } }
     @keyframes blink { 50% { border-color: transparent } }
-  </style>
 
+    /* Tema toggle button */
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 10;
+    }
+
+    .theme-toggle button {
+      background: var(--button-bg);
+      color: var(--button-fg);
+      border: 1px solid var(--button-border);
+      border-radius: 999px;
+      padding: 0.3rem 0.9rem;
+      font-family: inherit;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+    }
+
+    .theme-toggle button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 8px rgba(255, 0, 255, 0.4);
+    }
+
+    .theme-toggle button:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+  </style>
 </head>
 <body>
+
+  <div class="theme-toggle">
+    <button id="theme-toggle" type="button">☀ Light</button>
+  </div>
 
   <div class="typing">c4@c0x00:~# ./a.sh</div>
 
   <div class="ascii-box">
-    <pre>
+    <pre class="glitch">
                                         |     |     | 
                                       )_)   )_)   )_)
                                      )___) )___) )___)\
@@ -133,11 +240,39 @@
   </div>
 
   <p>
-    <a href="https://github.com/clivoa" target="_blank">GitHub</a> |
-    <a href="https://twitter.com/clivoa" target="_blank">X</a> |
-    <a href="https://bsky.app/profile/clivoa.bsky.social" target="_blank">Bluesky</a> |
-    <a href="https://www.linkedin.com/in/clivoa" target="_blank">LinkedIn</a>
+    <a href="https://github.com/clivoa" target="_blank" rel="noopener noreferrer">GitHub</a> |
+    <a href="https://twitter.com/clivoa" target="_blank" rel="noopener noreferrer">X</a> |
+    <a href="https://bsky.app/profile/clivoa.bsky.social" target="_blank" rel="noopener noreferrer">Bluesky</a> |
+    <a href="https://www.linkedin.com/in/clivoa" target="_blank" rel="noopener noreferrer">LinkedIn</a>
   </p>
+
+  <script>
+    (function () {
+      const root = document.documentElement;
+      const btn = document.getElementById('theme-toggle');
+
+      function setLabel() {
+        const isLight = root.getAttribute('data-theme') === 'light';
+        btn.textContent = isLight ? '🌙 Dark' : '☀ Light';
+      }
+
+      // Carrega preferência salva, se existir
+      const saved = localStorage.getItem('theme');
+      if (saved === 'light' || saved === 'dark') {
+        root.setAttribute('data-theme', saved);
+      }
+
+      setLabel();
+
+      btn.addEventListener('click', () => {
+        const current = root.getAttribute('data-theme') || 'dark';
+        const next = current === 'light' ? 'dark' : 'light';
+        root.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        setLabel();
+      });
+    })();
+  </script>
 
 </body>
 </html>
