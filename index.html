@@ -3,14 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>clivoa</title>
-
-  <!-- Social preview -->
-  <meta property="og:title" content="clivoa — security & code" />
+  <meta name="description" content="security • research • hunt" />
+  <meta property="og:title" content="clivoa — security & hunt" />
   <meta property="og:description" content="Hinc illae lacrimae:(){ :|:& };:" />
   <meta property="og:type" content="website" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico?v=2" />
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico?v=2" />
+  <link rel="apple-touch-icon" href="favicon.ico?v=2" />
+  <title>clivoa — security & hunt</title>
 
   <style>
+    /* ===== ROOT & VARIABLES ===== */
     :root {
       --bg: #000;
       --fg: #e6e6e6;
@@ -23,34 +26,43 @@
       --term-bg: rgba(5, 5, 5, 0.9);
       --term-border: #333;
       --term-header-bg: #111;
-      --term-muted: #888;
-      --term-green: #7fff7f;
-      --term-yellow: #ffe97f;
-      --term-red: #ff7f7f;
+      --term-muted: #6a7d8f;
+      --term-green: #5eead4;
+      --term-yellow: #a78bfa;
+      --term-red: #ff6b9d;
+      --section-gap: 2rem;
+      --padding-base: 1rem;
     }
 
-    /* Light theme overrides */
     [data-theme="light"] {
-      --bg: #f5f5f5;
-      --fg: #111111;
+      --bg: #fafafa;
+      --fg: #1f2937;
       --link: #7a00c2;
       --link-hover: #ff0099;
-      --glass: rgba(255, 255, 255, 0.85);
-      --button-bg: rgba(245, 245, 245, 0.9);
-      --button-fg: #111111;
-      --button-border: #bbbbbb;
-      --term-bg: rgba(250, 250, 250, 0.95);
-      --term-border: #cccccc;
-      --term-header-bg: #e9e9e9;
-      --term-muted: #666666;
-      --term-green: #008000;
-      --term-yellow: #b38400;
-      --term-red: #b00000;
+      --glass: rgba(255, 255, 255, 0.9);
+      --button-bg: #ffffff;
+      --button-fg: #1f2937;
+      --button-border: #e5e7eb;
+      --term-bg: #ffffff;
+      --term-border: #e5e7eb;
+      --term-header-bg: #f9fafb;
+      --term-muted: #9ca3af;
+      --term-green: #0d9488;
+      --term-yellow: #7c3aed;
+      --term-red: #dc2626;
+    }
+
+    /* ===== GLOBAL ===== */
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
     }
 
     body {
       margin: 0;
-      height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -58,151 +70,99 @@
       background: var(--bg);
       color: var(--fg);
       font-family: "Courier New", monospace;
-      padding: 1rem;
-      box-sizing: border-box;
+      padding: var(--padding-base);
       overflow-x: hidden;
       position: relative;
+      min-height: 100vh;
     }
 
-    /* Subtle CRT scanlines (mais legal no dark) */
     body::after {
       content: "";
-      position: absolute;
+      position: fixed;
       inset: 0;
       pointer-events: none;
       background: repeating-linear-gradient(
         to bottom,
-        rgba(255,255,255,0.03) 0px,
-        rgba(255,255,255,0.03) 1px,
+        rgba(255, 255, 255, 0.03) 0px,
+        rgba(255, 255, 255, 0.03) 1px,
         transparent 2px
       );
       mix-blend-mode: overlay;
       opacity: 0.55;
+      z-index: -1;
     }
 
     [data-theme="light"] body::after {
-      opacity: 0; /* remove CRT no tema claro */
+      opacity: 0;
     }
 
-    .ascii-box {
-      padding: 1rem 1.5rem;
-      background: var(--glass);
-      border-radius: 6px;
-      backdrop-filter: blur(4px);
-      max-width: 98%;
-    }
-
-    pre {
-      margin: 0;
-      white-space: pre;
-      text-align: center;
-      font-size: 1rem;
-      line-height: 1.1;
-      animation: fadein 1.2s ease;
-    }
-
+    /* ===== ANIMATIONS ===== */
     @keyframes fadein {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    /* Glitch effect no ASCII */
-    .glitch {
-      position: relative;
-      animation: glitch 2.6s infinite steps(2, end);
+    @keyframes typing {
+      from {
+        width: 0;
+      }
+    }
+
+    @keyframes blink {
+      50% {
+        border-color: transparent;
+      }
     }
 
     @keyframes glitch {
       0% {
-        text-shadow:
-          2px 0 rgba(255, 0, 0, 0.5),
-          -2px 0 rgba(0, 255, 255, 0.5);
+        text-shadow: 2px 0 rgba(255, 0, 0, 0.5), -2px 0 rgba(0, 255, 255, 0.5);
         transform: translate(0, 0);
       }
       10% {
-        text-shadow:
-          -3px 0 rgba(255, 0, 0, 0.8),
-          3px 0 rgba(0, 255, 255, 0.8);
+        text-shadow: -3px 0 rgba(255, 0, 0, 0.8), 3px 0 rgba(0, 255, 255, 0.8);
         transform: translate(-1px, 0);
       }
       20% {
-        text-shadow:
-          3px 0 rgba(255, 0, 0, 0.4),
-          -3px 0 rgba(0, 255, 255, 0.4);
+        text-shadow: 3px 0 rgba(255, 0, 0, 0.4), -3px 0 rgba(0, 255, 255, 0.4);
         transform: translate(1px, 0);
       }
       30% {
-        text-shadow:
-          1px 0 rgba(255, 0, 0, 0.6),
-          -1px 0 rgba(0, 255, 255, 0.6);
+        text-shadow: 1px 0 rgba(255, 0, 0, 0.6), -1px 0 rgba(0, 255, 255, 0.6);
         transform: translate(0, 1px);
       }
       40% {
-        text-shadow:
-          -1px 0 rgba(255, 0, 0, 0.3),
-          1px 0 rgba(0, 255, 255, 0.3);
+        text-shadow: -1px 0 rgba(255, 0, 0, 0.3), 1px 0 rgba(0, 255, 255, 0.3);
         transform: translate(0, -1px);
       }
-      50% {
-        text-shadow: none;
-        transform: translate(0, 0);
-      }
+      50%,
       100% {
         text-shadow: none;
         transform: translate(0, 0);
       }
     }
 
-    /* Links */
-    p {
-      margin-top: 1.2rem;
-      font-size: 1.1rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    a {
-      color: var(--link);
-      font-weight: bold;
-      text-decoration: none;
-      margin: 0 0.6rem;
-      transition: color 0.2s ease, text-shadow 0.2s ease;
-    }
-
-    a:hover {
-      color: var(--link-hover);
-      text-shadow: 0 0 6px var(--link-hover);
-    }
-
-    /* Mobile */
-    @media (max-width: 600px) {
-      pre {
-        font-size: 0.75rem;
+    @keyframes cursor-blink {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
       }
     }
 
-    /* Typing effect for the root title line */
-    .typing {
-      border-right: 2px solid #ff00ff;
-      width: 19ch;
-      overflow: hidden;
-      white-space: nowrap;
-      animation: typing 2s steps(19), blink 0.8s infinite step-end alternate;
-      margin: 0 auto 0.8rem auto;
-      text-align: center;
-      position: relative;
-      z-index: 1;
-    }
-
-    @keyframes typing { from { width: 0 } }
-    @keyframes blink { 50% { border-color: transparent } }
-
-    /* Tema toggle button */
+    /* ===== HEADER ===== */
     .theme-toggle {
       position: fixed;
-      top: 1rem;
-      right: 1rem;
-      z-index: 10;
+      top: var(--padding-base);
+      right: var(--padding-base);
+      z-index: 100;
     }
 
     .theme-toggle button {
@@ -230,10 +190,54 @@
       box-shadow: none;
     }
 
-    /* Terminal fake */
+    /* ===== MAIN CONTENT ===== */
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--section-gap);
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      width: 100%;
+    }
+
+    /* ===== TYPING HEADER ===== */
+    .typing-header {
+      border-right: 2px solid var(--link-hover);
+      width: 19ch;
+      overflow: hidden;
+      white-space: nowrap;
+      animation: typing 2s steps(19), blink 0.8s infinite step-end alternate;
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    /* ===== ASCII BOX ===== */
+    .ascii-box {
+      padding: 1rem 1.5rem;
+      background: var(--glass);
+      border-radius: 6px;
+      backdrop-filter: blur(4px);
+      width: 100%;
+      animation: fadein 1.2s ease;
+    }
+
+    .ascii-art {
+      margin: 0;
+      white-space: pre;
+      text-align: center;
+      font-size: 1rem;
+      line-height: 1.1;
+    }
+
+    .glitch {
+      animation: glitch 2.6s infinite steps(2, end);
+    }
+
+    /* ===== TERMINAL ===== */
     .terminal {
-      margin-top: 1rem;
-      max-width: 720px;
+      max-width: 100%;
       width: 100%;
       border-radius: 8px;
       border: 1px solid var(--term-border);
@@ -241,8 +245,7 @@
       box-shadow: 0 0 18px rgba(0, 0, 0, 0.5);
       overflow: hidden;
       font-size: 0.8rem;
-      position: relative;
-      z-index: 1;
+      animation: fadein 1.2s ease 0.2s both;
     }
 
     .terminal-header {
@@ -255,16 +258,24 @@
       color: var(--term-muted);
     }
 
-    .term-dot {
+    .terminal-dot {
       width: 10px;
       height: 10px;
       border-radius: 50%;
       flex-shrink: 0;
     }
 
-    .term-dot.red { background: var(--term-red); }
-    .term-dot.yellow { background: var(--term-yellow); }
-    .term-dot.green { background: var(--term-green); }
+    .terminal-dot.red {
+      background: var(--term-red);
+    }
+
+    .terminal-dot.yellow {
+      background: var(--term-yellow);
+    }
+
+    .terminal-dot.green {
+      background: var(--term-green);
+    }
 
     .terminal-title {
       margin-left: 6px;
@@ -273,30 +284,37 @@
     }
 
     .terminal-body {
-      padding: 0.6rem 0.8rem 0.8rem;
+      padding: 0.6rem 0.8rem;
       color: var(--fg);
       overflow-x: auto;
+      max-height: 400px;
+      overflow-y: auto;
     }
 
-    .line {
+    .terminal-line {
       white-space: pre-wrap;
       word-break: break-word;
+      line-height: 1.4;
     }
 
     .prompt {
       color: var(--term-green);
     }
 
-    .cmd-muted {
+    .muted {
       color: var(--term-muted);
     }
 
-    .cmd-highlight {
+    .highlight {
       color: var(--term-yellow);
     }
 
-    .cmd-error {
+    .error {
       color: var(--term-red);
+    }
+
+    .break {
+      height: 0.6rem;
     }
 
     .cursor {
@@ -307,22 +325,100 @@
       margin-left: 2px;
     }
 
-    @keyframes cursor-blink {
-      from { opacity: 1; }
-      to { opacity: 0; }
+    /* ===== SECTIONS ===== */
+    .section {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      animation: fadein 1.2s ease 0.4s both;
+    }
+
+    .section-title {
+      color: var(--term-yellow);
+      font-size: 0.95rem;
+      margin: 0;
+      padding: 0;
+      opacity: 0.9;
+    }
+
+    .section-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    /* ===== LINKS ===== */
+    a {
+      color: var(--link);
+      font-weight: bold;
+      text-decoration: none;
+      transition: color 0.2s ease, text-shadow 0.2s ease;
+      padding-bottom: 2px;
+      border-bottom: 1px solid transparent;
+    }
+
+    a:hover {
+      color: var(--link-hover);
+      text-shadow: 0 0 6px var(--link-hover);
+      border-bottom-color: var(--link-hover);
+    }
+
+    .link-separator {
+      color: var(--term-muted);
+      opacity: 0.6;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 600px) {
+      :root {
+        --section-gap: 1.5rem;
+        --padding-base: 0.75rem;
+      }
+
+      body {
+        padding: var(--padding-base);
+      }
+
+      .ascii-art {
+        font-size: 0.75rem;
+      }
+
+      .terminal {
+        font-size: 0.7rem;
+      }
+
+      .terminal-body {
+        max-height: 300px;
+      }
+
+      .typing-header {
+        width: 15ch;
+        animation: typing 1.5s steps(15), blink 0.8s infinite step-end alternate;
+      }
+
+      .section-links {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .link-separator {
+        display: none;
+      }
     }
   </style>
 </head>
 <body>
-
   <div class="theme-toggle">
     <button id="theme-toggle" type="button">☀ Light</button>
   </div>
 
-  <div class="typing">c4@c0x00:~# ./a.sh</div>
+  <div class="container">
+    <div class="typing-header">c4@c0x00:~# ./a.sh</div>
 
-  <div class="ascii-box">
-    <pre class="glitch">
+    <div class="ascii-box">
+      <pre class="ascii-art glitch">
                                         |     |     | 
                                       )_)   )_)   )_)
                                      )___) )___) )___)\
@@ -332,94 +428,109 @@
   ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\________________________________/~ ~ ~ ~
                        /*  Hinc illae lacrimae:(){ :|:& };: */
   ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-    </pre>
-  </div>
-
-  <!-- Terminal fake com comandos "exploit-ish" -->
-  <div class="terminal">
-    <div class="terminal-header">
-      <div class="term-dot red"></div>
-      <div class="term-dot yellow"></div>
-      <div class="term-dot green"></div>
-      <span class="terminal-title">root@c0x00 — exploits.log</span>
+      </pre>
     </div>
-    <div class="terminal-body">
-      <div class="line cmd-muted"># reconnaissance & vuln scan</div>
-      <div class="line">
-        <span class="prompt">root@c0x00:~#</span> nmap -sV --script vuln target.lab
-      </div>
-      <div class="line cmd-muted">PORT   STATE SERVICE VERSION</div>
-      <div class="line cmd-muted">22/tcp open  ssh     OpenSSH 9.2p1</div>
-      <div class="line cmd-muted">80/tcp open  http    nginx 1.24.0</div>
-      <div class="line cmd-muted">443/tcp open https   nginx 1.24.0</div>
-      <div class="line cmd-muted">|_ vulns: potential CVE-20XX-XXXX (score 9.8) — verify manually</div>
-      <br />
 
-      <div class="line cmd-muted"># lookup known issues (read-only, no PoC)</div>
-      <div class="line">
-        <span class="prompt">root@c0x00:~#</span> searchsploit "nginx 1.24"
+    <div class="terminal">
+      <div class="terminal-header">
+        <div class="terminal-dot red"></div>
+        <div class="terminal-dot yellow"></div>
+        <div class="terminal-dot green"></div>
+        <span class="terminal-title">root@c0x00 — exploits.log</span>
       </div>
-      <div class="line cmd-muted">Exploit Title                    |  Path</div>
-      <div class="line cmd-muted">------------------------------- | -------------------------</div>
-      <div class="line cmd-muted">nginx &lt;= 1.24 - advisory refs | multiple/cve-20xx-xxxx</div>
-      <br />
+      <div class="terminal-body">
+        <div class="terminal-line muted"># reconnaissance & vuln scan</div>
+        <div class="terminal-line">
+          <span class="prompt">root@c0x00:~#</span> nmap -sV --script vuln target.lab
+        </div>
+        <div class="terminal-line muted">PORT   STATE SERVICE VERSION</div>
+        <div class="terminal-line muted">22/tcp open  ssh     OpenSSH 9.2p1</div>
+        <div class="terminal-line muted">80/tcp open  http    nginx 1.24.0</div>
+        <div class="terminal-line muted">443/tcp open https   nginx 1.24.0</div>
+        <div class="terminal-line muted">|_ vulns: potential CVE-20XX-XXXX (score 9.8) — verify manually</div>
+        <div class="terminal-line break"></div>
 
-      <div class="line cmd-muted"># quick IOC check (simulado)</div>
-      <div class="line">
-        <span class="prompt">root@c0x00:~#</span> python3 exploit_checker.py --cve CVE-20XX-XXXX --mode safe-audit
-      </div>
-      <div class="line cmd-highlight">[+] Loaded advisory for CVE-20XX-XXXX (RCE, score 9.8)</div>
-      <div class="line cmd-highlight">[+] Safe audit mode enabled (no exploit code executed)</div>
-      <div class="line cmd-highlight">[+] Target: target.lab</div>
-      <div class="line cmd-error">[!] Proof-of-concept is redacted in this environment</div>
-      <div class="line cmd-muted">[i] consult vendor advisories &amp; apply patches</div>
-      <br />
+        <div class="terminal-line muted"># lookup known issues (read-only, no PoC)</div>
+        <div class="terminal-line">
+          <span class="prompt">root@c0x00:~#</span> searchsploit "nginx 1.24"
+        </div>
+        <div class="terminal-line muted">Exploit Title                    |  Path</div>
+        <div class="terminal-line muted">------------------------------- | -------------------------</div>
+        <div class="terminal-line muted">nginx &lt;= 1.24 - advisory refs | multiple/cve-20xx-xxxx</div>
+        <div class="terminal-line break"></div>
 
-      <div class="line cmd-muted"># "exploit" nível gerente</div>
-      <div class="line">
-        <span class="prompt">root@c0x00:~#</span> echo "patching &amp; hardening &gt; 0day hunting" &gt;&gt; /var/log/clivoa-philosophy.log
-      </div>
-      <div class="line cmd-highlight">[+] logged: patching &amp; hardening &gt; 0day hunting</div>
-      <br />
+        <div class="terminal-line muted"># quick IOC check (simulado)</div>
+        <div class="terminal-line">
+          <span class="prompt">root@c0x00:~#</span> python3 exploit_checker.py --cve CVE-20XX-XXXX --mode safe-audit
+        </div>
+        <div class="terminal-line highlight">[+] Loaded advisory for CVE-20XX-XXXX (RCE, score 9.8)</div>
+        <div class="terminal-line highlight">[+] Safe audit mode enabled (no exploit code executed)</div>
+        <div class="terminal-line highlight">[+] Target: target.lab</div>
+        <div class="terminal-line error">[!] Proof-of-concept is redacted in this environment</div>
+        <div class="terminal-line muted">[i] consult vendor advisories &amp; apply patches</div>
+        <div class="terminal-line break"></div>
 
-      <div class="line">
-        <span class="prompt">root@c0x00:~#</span> _<span class="cursor"></span>
+        <div class="terminal-line muted"># "exploit" nível gerente</div>
+        <div class="terminal-line">
+          <span class="prompt">root@c0x00:~#</span> echo "patching &amp; hardening &gt; 0day hunting" &gt;&gt; /var/log/clivoa-philosophy.log
+        </div>
+        <div class="terminal-line highlight">[+] logged: patching &amp; hardening &gt; 0day hunting</div>
+        <div class="terminal-line break"></div>
+
+        <div class="terminal-line muted"># accessing personal resources</div>
+        <div class="terminal-line">
+          <span class="prompt">root@c0x00:~#</span> cat /root/.portfolio
+        </div>
+        <div class="terminal-line highlight">[+] Projects &amp; Resources:</div>
+        <div class="terminal-line">
+          &nbsp;&nbsp;» <a href="https://clivoa.github.io/S33R/" target="_blank" rel="noopener noreferrer">S33R</a> <span class="muted">|</span> <a href="https://clivoa.github.io/blog" target="_blank" rel="noopener noreferrer">Blog</a> <span class="muted">|</span> <a href="http://awesomesecurityfeeds.com/" target="_blank" rel="noopener noreferrer">Security Feeds</a>
+        </div>
+        <div class="terminal-line highlight">[+] Find Me:</div>
+        <div class="terminal-line">
+          &nbsp;&nbsp;» <a href="https://github.com/clivoa" target="_blank" rel="noopener noreferrer">GitHub</a> <span class="muted">|</span> <a href="https://twitter.com/clivoa" target="_blank" rel="noopener noreferrer">X</a> <span class="muted">|</span> <a href="https://bsky.app/profile/clivoa.bsky.social" target="_blank" rel="noopener noreferrer">Bluesky</a> <span class="muted">|</span> <a href="https://www.linkedin.com/in/clivoa" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+        <div class="terminal-line break"></div>
+
+        <div class="terminal-line">
+          <span class="prompt">root@c0x00:~#</span> _<span class="cursor"></span>
+        </div>
       </div>
     </div>
   </div>
-
-  <p>
-    <a href="https://github.com/clivoa" target="_blank" rel="noopener noreferrer">GitHub</a> |
-    <a href="https://twitter.com/clivoa" target="_blank" rel="noopener noreferrer">X</a> |
-    <a href="https://bsky.app/profile/clivoa.bsky.social" target="_blank" rel="noopener noreferrer">Bluesky</a> |
-    <a href="https://www.linkedin.com/in/clivoa" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-  </p>
 
   <script>
-    (function () {
+    (() => {
+      const THEME_KEY = 'theme-preference';
+      const DARK = 'dark';
+      const LIGHT = 'light';
       const root = document.documentElement;
       const btn = document.getElementById('theme-toggle');
 
-      function setLabel() {
-        const isLight = root.getAttribute('data-theme') === 'light';
+      const updateLabel = () => {
+        const isLight = root.getAttribute('data-theme') === LIGHT;
         btn.textContent = isLight ? '🌙 Dark' : '☀ Light';
-      }
+      };
 
-      // Carrega preferência salva, se existir
-      const saved = localStorage.getItem('theme');
-      if (saved === 'light' || saved === 'dark') {
+      const setTheme = (theme) => {
+        root.setAttribute('data-theme', theme);
+        localStorage.setItem(THEME_KEY, theme);
+        updateLabel();
+      };
+
+      const toggleTheme = () => {
+        const current = root.getAttribute('data-theme') || DARK;
+        const next = current === LIGHT ? DARK : LIGHT;
+        setTheme(next);
+      };
+
+      // Load saved theme preference
+      const saved = localStorage.getItem(THEME_KEY);
+      if (saved === LIGHT || saved === DARK) {
         root.setAttribute('data-theme', saved);
       }
 
-      setLabel();
-
-      btn.addEventListener('click', () => {
-        const current = root.getAttribute('data-theme') || 'dark';
-        const next = current === 'light' ? 'dark' : 'light';
-        root.setAttribute('data-theme', next);
-        localStorage.setItem('theme', next);
-        setLabel();
-      });
+      updateLabel();
+      btn.addEventListener('click', toggleTheme);
     })();
   </script>
 
