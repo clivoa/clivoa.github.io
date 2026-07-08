@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="security • research • hunt" />
-  <meta property="og:title" content="clivoa — security & hunt" />
-  <meta property="og:description" content="Hinc illae lacrimae:(){ :|:& };:" />
+  <meta name="description" content="clivoa - cybersecurity projects, threat intelligence, SOC, detection engineering, and automation." />
+  <meta property="og:title" content="clivoa - security, hunt &amp; automation" />
+  <meta property="og:description" content="Personal cybersecurity, threat intelligence, SOC, and detection engineering projects." />
   <meta property="og:type" content="website" />
   <link rel="icon" type="image/x-icon" href="favicon.ico?v=2" />
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico?v=2" />
   <link rel="apple-touch-icon" href="favicon.ico?v=2" />
-  <title>clivoa — security & hunt</title>
+  <title>clivoa - security, hunt &amp; automation</title>
 
   <style>
     /* ===== ROOT & VARIABLES ===== */
@@ -26,6 +26,9 @@
       --term-bg: rgba(5, 5, 5, 0.9);
       --term-border: #333;
       --term-header-bg: #111;
+      --card-bg: rgba(8, 8, 10, 0.72);
+      --card-border: rgba(167, 139, 250, 0.28);
+      --chip-bg: rgba(179, 0, 255, 0.12);
       --term-muted: #6a7d8f;
       --term-green: #5eead4;
       --term-yellow: #a78bfa;
@@ -46,6 +49,9 @@
       --term-bg: #ffffff;
       --term-border: #e5e7eb;
       --term-header-bg: #f9fafb;
+      --card-bg: rgba(255, 255, 255, 0.92);
+      --card-border: rgba(124, 58, 237, 0.24);
+      --chip-bg: rgba(124, 58, 237, 0.08);
       --term-muted: #9ca3af;
       --term-green: #0d9488;
       --term-yellow: #7c3aed;
@@ -65,12 +71,12 @@
       margin: 0;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
       background: var(--bg);
       color: var(--fg);
       font-family: "Courier New", monospace;
-      padding: var(--padding-base);
+      padding: clamp(3.75rem, 6vw, 5rem) var(--padding-base) 3rem;
       overflow-x: hidden;
       position: relative;
       min-height: 100vh;
@@ -198,7 +204,7 @@
       gap: var(--section-gap);
       position: relative;
       z-index: 1;
-      max-width: 800px;
+      max-width: 1040px;
       width: 100%;
     }
 
@@ -220,6 +226,7 @@
       border-radius: 6px;
       backdrop-filter: blur(4px);
       width: 100%;
+      overflow: hidden;
       animation: fadein 1.2s ease;
     }
 
@@ -342,6 +349,10 @@
       opacity: 0.9;
     }
 
+    .projects-section {
+      gap: 1rem;
+    }
+
     .section-links {
       display: flex;
       flex-wrap: wrap;
@@ -370,6 +381,129 @@
       opacity: 0.6;
     }
 
+    /* ===== PROJECT INVENTORY ===== */
+    .scan-summary {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+
+    .scan-item {
+      border: 1px solid var(--term-border);
+      border-radius: 8px;
+      background: var(--card-bg);
+      padding: 0.75rem;
+      min-height: 74px;
+    }
+
+    .scan-label {
+      display: block;
+      color: var(--term-muted);
+      font-size: 0.72rem;
+      margin-bottom: 0.35rem;
+      text-transform: uppercase;
+    }
+
+    .scan-value {
+      color: var(--term-green);
+      font-size: 1rem;
+      font-weight: bold;
+      line-height: 1.3;
+    }
+
+    .project-grid {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.85rem;
+    }
+
+    .project-card {
+      display: flex;
+      min-height: 188px;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.85rem;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      background: var(--card-bg);
+      padding: 1rem;
+      overflow: hidden;
+      box-shadow: 0 0 14px rgba(0, 0, 0, 0.18);
+    }
+
+    .project-card.featured {
+      border-color: rgba(94, 234, 212, 0.48);
+    }
+
+    .project-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .project-name {
+      flex: 1 1 12rem;
+      min-width: 0;
+      color: var(--term-yellow);
+      font-size: 0.98rem;
+      line-height: 1.3;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
+
+    .project-status {
+      flex-shrink: 0;
+      color: var(--term-green);
+      font-size: 0.7rem;
+      line-height: 1.2;
+      border: 1px solid currentColor;
+      border-radius: 999px;
+      padding: 0.18rem 0.45rem;
+      opacity: 0.86;
+    }
+
+    .project-desc {
+      margin: 0;
+      color: var(--fg);
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .project-tags span {
+      color: var(--term-muted);
+      background: var(--chip-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 999px;
+      padding: 0.16rem 0.45rem;
+      font-size: 0.68rem;
+      line-height: 1.25;
+    }
+
+    .project-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      font-size: 0.78rem;
+    }
+
+    .inventory-note {
+      margin: 0;
+      color: var(--term-muted);
+      font-size: 0.78rem;
+      line-height: 1.5;
+      text-align: center;
+    }
+
     /* ===== RESPONSIVE ===== */
     @media (max-width: 600px) {
       :root {
@@ -378,11 +512,11 @@
       }
 
       body {
-        padding: var(--padding-base);
+        padding: 3.75rem var(--padding-base) 2rem;
       }
 
       .ascii-art {
-        font-size: 0.75rem;
+        font-size: 0.45rem;
       }
 
       .terminal {
@@ -406,6 +540,19 @@
       .link-separator {
         display: none;
       }
+
+      .scan-summary,
+      .project-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .scan-item {
+        min-height: auto;
+      }
+
+      .project-card {
+        min-height: auto;
+      }
     }
   </style>
 </head>
@@ -426,7 +573,7 @@
                                _____|  root@c0x00:~#  |_____\__
                       ----====|  sudo ./a.sh --force  |====----
   ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\________________________________/~ ~ ~ ~
-                       /*  Hinc illae lacrimae:(){ :|:& };: */
+                       /*  here come the tears:(){ :|:&amp; };: */
   ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
       </pre>
     </div>
@@ -436,10 +583,10 @@
         <div class="terminal-dot red"></div>
         <div class="terminal-dot yellow"></div>
         <div class="terminal-dot green"></div>
-        <span class="terminal-title">root@c0x00 — exploits.log</span>
+        <span class="terminal-title">root@c0x00 - exploits.log</span>
       </div>
       <div class="terminal-body">
-        <div class="terminal-line muted"># reconnaissance & vuln scan</div>
+        <div class="terminal-line muted"># reconnaissance &amp; vuln scan</div>
         <div class="terminal-line">
           <span class="prompt">root@c0x00:~#</span> nmap -sV --script vuln target.lab
         </div>
@@ -447,7 +594,7 @@
         <div class="terminal-line muted">22/tcp open  ssh     OpenSSH 9.2p1</div>
         <div class="terminal-line muted">80/tcp open  http    nginx 1.24.0</div>
         <div class="terminal-line muted">443/tcp open https   nginx 1.24.0</div>
-        <div class="terminal-line muted">|_ vulns: potential CVE-20XX-XXXX (score 9.8) — verify manually</div>
+        <div class="terminal-line muted">|_ vulns: potential CVE-20XX-XXXX (score 9.8) - verify manually</div>
         <div class="terminal-line break"></div>
 
         <div class="terminal-line muted"># lookup known issues (read-only, no PoC)</div>
@@ -459,7 +606,7 @@
         <div class="terminal-line muted">nginx &lt;= 1.24 - advisory refs | multiple/cve-20xx-xxxx</div>
         <div class="terminal-line break"></div>
 
-        <div class="terminal-line muted"># quick IOC check (simulado)</div>
+        <div class="terminal-line muted"># quick IOC check (simulated)</div>
         <div class="terminal-line">
           <span class="prompt">root@c0x00:~#</span> python3 exploit_checker.py --cve CVE-20XX-XXXX --mode safe-audit
         </div>
@@ -470,20 +617,30 @@
         <div class="terminal-line muted">[i] consult vendor advisories &amp; apply patches</div>
         <div class="terminal-line break"></div>
 
-        <div class="terminal-line muted"># "exploit" nível gerente</div>
+        <div class="terminal-line muted"># manager-level "exploit"</div>
         <div class="terminal-line">
           <span class="prompt">root@c0x00:~#</span> echo "patching &amp; hardening &gt; 0day hunting" &gt;&gt; /var/log/clivoa-philosophy.log
         </div>
         <div class="terminal-line highlight">[+] logged: patching &amp; hardening &gt; 0day hunting</div>
         <div class="terminal-line break"></div>
 
-        <div class="terminal-line muted"># accessing personal resources</div>
+        <div class="terminal-line muted"># github inventory sync (2026-07-08)</div>
         <div class="terminal-line">
-          <span class="prompt">root@c0x00:~#</span> cat /root/.portfolio
+          <span class="prompt">root@c0x00:~#</span> gh repo list clivoa --source --limit 100 --json name,repositoryTopics,primaryLanguage,pushedAt
         </div>
+        <div class="terminal-line highlight">[+] owned repos: 24 | public: 16 | private labs: 8</div>
+        <div class="terminal-line highlight">[+] stack: Python, JavaScript, TypeScript, HTML, SCSS, Vim Script</div>
+        <div class="terminal-line highlight">[+] focus: CTI, SOC, MITRE ATT&amp;CK, detection engineering, security automation</div>
+        <div class="terminal-line muted">[i] private repo names are intentionally omitted from this public index</div>
+        <div class="terminal-line break"></div>
+
+        <div class="terminal-line muted"># highlighted public projects</div>
         <div class="terminal-line highlight">[+] Projects &amp; Resources:</div>
         <div class="terminal-line">
-          &nbsp;&nbsp;» <a href="https://clivoa.github.io/S33R/" target="_blank" rel="noopener noreferrer">S33R</a> <span class="muted">|</span> <a href="https://clivoa.github.io/blog" target="_blank" rel="noopener noreferrer">Blog</a> <span class="muted">|</span> <a href="http://awesomesecurityfeeds.com/" target="_blank" rel="noopener noreferrer">Security Feeds</a>
+          &nbsp;&nbsp;» <a href="https://clivoa.github.io/attack-analysis-workbench/" target="_blank" rel="noopener noreferrer">ATT&amp;CK Workbench</a> <span class="muted">|</span> <a href="https://clivoa.github.io/S33R/" target="_blank" rel="noopener noreferrer">S33R</a> <span class="muted">|</span> <a href="https://awesomesecurityfeeds.com/" target="_blank" rel="noopener noreferrer">Security Feeds</a> <span class="muted">|</span> <a href="https://thecybercerts.com/" target="_blank" rel="noopener noreferrer">The Cyber Certs</a>
+        </div>
+        <div class="terminal-line">
+          &nbsp;&nbsp;» <a href="https://github.com/clivoa/DaC" target="_blank" rel="noopener noreferrer">DaC</a> <span class="muted">|</span> <a href="https://github.com/clivoa/harppia" target="_blank" rel="noopener noreferrer">harppia</a> <span class="muted">|</span> <a href="https://github.com/clivoa/talon-cql" target="_blank" rel="noopener noreferrer">talon-cql</a> <span class="muted">|</span> <a href="https://github.com/clivoa/spl2cql-kit" target="_blank" rel="noopener noreferrer">spl2cql-kit</a>
         </div>
         <div class="terminal-line highlight">[+] Find Me:</div>
         <div class="terminal-line">
@@ -496,6 +653,197 @@
         </div>
       </div>
     </div>
+
+    <section class="section projects-section" aria-labelledby="inventory-title">
+      <h2 class="section-title" id="inventory-title">/home/clivoa/github.inventory</h2>
+
+      <div class="scan-summary" aria-label="Analyzed repository summary">
+        <div class="scan-item">
+          <span class="scan-label">owned repositories</span>
+          <span class="scan-value">24 analyzed</span>
+        </div>
+        <div class="scan-item">
+          <span class="scan-label">public on this page</span>
+          <span class="scan-value">16 projects</span>
+        </div>
+        <div class="scan-item">
+          <span class="scan-label">dominant stack</span>
+          <span class="scan-value">Python + JS/TS</span>
+        </div>
+        <div class="scan-item">
+          <span class="scan-label">main focus</span>
+          <span class="scan-value">CTI / SOC / detection</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section projects-section" aria-labelledby="projects-title">
+      <h2 class="section-title" id="projects-title">/home/clivoa/public.projects</h2>
+
+      <div class="project-grid">
+        <article class="project-card featured">
+          <div class="project-top">
+            <a class="project-name" href="https://github.com/clivoa/attack-analysis-workbench" target="_blank" rel="noopener noreferrer">attack-analysis-workbench</a>
+            <span class="project-status">LIVE</span>
+          </div>
+          <p class="project-desc">Interactive MITRE ATT&amp;CK workbench for CTI, SOC, and detection engineering: explore threats, prioritize detections, and plan mitigations.</p>
+          <div class="project-tags"><span>JavaScript</span><span>MITRE ATT&amp;CK</span><span>CTI</span><span>SOC</span></div>
+          <div class="project-links"><a href="https://clivoa.github.io/attack-analysis-workbench/" target="_blank" rel="noopener noreferrer">open demo</a><a href="https://github.com/clivoa/attack-analysis-workbench" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+        </article>
+
+        <article class="project-card featured">
+          <div class="project-top">
+            <a class="project-name" href="https://github.com/clivoa/S33R" target="_blank" rel="noopener noreferrer">S33R</a>
+            <span class="project-status">LIVE</span>
+          </div>
+          <p class="project-desc">Security news board that aggregates items from multiple public RSS sources for tracking threat intel and industry updates.</p>
+          <div class="project-tags"><span>Python</span><span>threat intel</span><span>RSS</span><span>security news</span></div>
+          <div class="project-links"><a href="https://clivoa.github.io/S33R/" target="_blank" rel="noopener noreferrer">open demo</a><a href="https://github.com/clivoa/S33R" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+        </article>
+
+        <article class="project-card featured">
+          <div class="project-top">
+            <a class="project-name" href="https://github.com/clivoa/awesome-security-feeds" target="_blank" rel="noopener noreferrer">awesome-security-feeds</a>
+            <span class="project-status">LIVE</span>
+          </div>
+          <p class="project-desc">Curated, structured, automation-friendly collection of security RSS/Atom sources, inspired by securityfeeds.org.</p>
+          <div class="project-tags"><span>Python</span><span>awesome list</span><span>feeds</span><span>cybersecurity</span></div>
+          <div class="project-links"><a href="https://awesomesecurityfeeds.com" target="_blank" rel="noopener noreferrer">open site</a><a href="https://github.com/clivoa/awesome-security-feeds" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+        </article>
+
+        <article class="project-card featured">
+          <div class="project-top">
+            <a class="project-name" href="https://github.com/clivoa/thecybercerts" target="_blank" rel="noopener noreferrer">thecybercerts</a>
+            <span class="project-status">LIVE</span>
+          </div>
+          <p class="project-desc">Curated cybersecurity certification roadmap for comparing tracks, domains, and next study steps.</p>
+          <div class="project-tags"><span>JavaScript</span><span>certifications</span><span>infosec</span><span>roadmap</span></div>
+          <div class="project-links"><a href="https://thecybercerts.com/" target="_blank" rel="noopener noreferrer">open site</a><a href="https://github.com/clivoa/thecybercerts" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-top">
+            <a class="project-name" href="https://github.com/clivoa/harppia" target="_blank" rel="noopener noreferrer">harppia</a>
+            <span class="project-status">TOOL</span>
+          </div>
+          <p class="project-desc">OSINT scanner for defensive exposed-credential monitoring, with GitHub Actions and Telegram alerts.</p>
+          <div class="project-tags"><span>Python</span><span>OSINT</span><span>secret scanning</span><span>alerts</span></div>
+          <div class="project-links"><a href="https://github.com/clivoa/harppia" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-top">
+            <a class="project-name" href="https://github.com/clivoa/DaC" target="_blank" rel="noopener noreferrer">DaC</a>
+            <span class="project-status">SOC</span>
+          </div>
+          <p class="project-desc">Detection as Code pipeline for Splunk: YAML rules, schema and SPL validation, PR governance, and REST deployment.</p>
+          <div class="project-tags"><span>Python</span><span>Splunk</span><span>detection as code</span><span>YAML</span></div>
+          <div class="project-links"><a href="https://github.com/clivoa/DaC" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-top">
+            <a class="project-name" href="https://github.com/clivoa/talon-cql" target="_blank" rel="noopener noreferrer">talon-cql</a>
+            <span class="project-status">PLUGIN</span>
+          </div>
+          <p class="project-desc">Obsidian plugin for CrowdStrike CQL/LogScale syntax highlighting in playbooks, runbooks, DFIR notes, and hunting templates.</p>
+          <div class="project-tags"><span>TypeScript</span><span>Obsidian</span><span>CQL</span><span>LogScale</span></div>
+          <div class="project-links"><a href="https://github.com/clivoa/talon-cql" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-top">
+            <a class="project-name" href="https://github.com/clivoa/spl2cql-kit" target="_blank" rel="noopener noreferrer">spl2cql-kit</a>
+            <span class="project-status">KIT</span>
+          </div>
+          <p class="project-desc">Toolkit for translating SPL queries to CQL/LogScale, with prompts, examples, and helper scripts for migration and documentation.</p>
+          <div class="project-tags"><span>Python</span><span>SPL</span><span>CQL</span><span>LogScale</span></div>
+          <div class="project-links"><a href="https://github.com/clivoa/spl2cql-kit" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-top">
+            <a class="project-name" href="https://github.com/clivoa/cybersquad" target="_blank" rel="noopener noreferrer">cybersquad</a>
+            <span class="project-status">OPS</span>
+          </div>
+          <p class="project-desc">Virtual cybersecurity squad for supporting day-to-day operations with prompt-based workflows and lightweight automation.</p>
+          <div class="project-tags"><span>Python</span><span>prompts</span><span>cyber ops</span><span>automation</span></div>
+          <div class="project-links"><a href="https://github.com/clivoa/cybersquad" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-top">
+            <a class="project-name" href="https://github.com/clivoa/blog" target="_blank" rel="noopener noreferrer">blog</a>
+            <span class="project-status">LIVE</span>
+          </div>
+          <p class="project-desc">Personal cybersecurity and technology notes, published with Jekyll Chirpy as a research base and technical memory.</p>
+          <div class="project-tags"><span>SCSS</span><span>Jekyll</span><span>notes</span><span>research</span></div>
+          <div class="project-links"><a href="https://clivoa.github.io/blog/" target="_blank" rel="noopener noreferrer">open blog</a><a href="https://github.com/clivoa/blog" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-top">
+            <a class="project-name" href="https://github.com/clivoa/shodan-monitor" target="_blank" rel="noopener noreferrer">shodan-monitor</a>
+            <span class="project-status">SCRIPT</span>
+          </div>
+          <p class="project-desc">Simple ASN monitoring script using Shodan, useful for recurring checks of exposed attack surface.</p>
+          <div class="project-tags"><span>Python</span><span>Shodan</span><span>ASN</span><span>monitoring</span></div>
+          <div class="project-links"><a href="https://github.com/clivoa/shodan-monitor" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-top">
+            <a class="project-name" href="https://github.com/clivoa/kernel-debug-lab-for-vmware" target="_blank" rel="noopener noreferrer">kernel-debug-lab-for-vmware</a>
+            <span class="project-status">LAB</span>
+          </div>
+          <p class="project-desc">Lab guide for setting up kernel driver debugging in VMware with WinDbg, a serial port, and a Windows virtual machine.</p>
+          <div class="project-tags"><span>kernel debug</span><span>WinDbg</span><span>VMware</span><span>lab</span></div>
+          <div class="project-links"><a href="https://github.com/clivoa/kernel-debug-lab-for-vmware" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-top">
+            <a class="project-name" href="https://github.com/clivoa/cobaltstrikekmodes" target="_blank" rel="noopener noreferrer">cobaltstrikekmodes</a>
+            <span class="project-status">NOTEBOOK</span>
+          </div>
+          <p class="project-desc">Legacy technical research notebook related to Cobalt Strike, kept on GitHub as a historical reference.</p>
+          <div class="project-tags"><span>Jupyter</span><span>research</span><span>security</span><span>legacy</span></div>
+          <div class="project-links"><a href="https://github.com/clivoa/cobaltstrikekmodes" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-top">
+            <a class="project-name" href="https://github.com/clivoa/Scripts" target="_blank" rel="noopener noreferrer">Scripts</a>
+            <span class="project-status">UTIL</span>
+          </div>
+          <p class="project-desc">Personal collection of utility scripts, without formal curation, used as a support area for small automations.</p>
+          <div class="project-tags"><span>Python</span><span>scripts</span><span>utility</span><span>personal</span></div>
+          <div class="project-links"><a href="https://github.com/clivoa/Scripts" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-top">
+            <a class="project-name" href="https://github.com/clivoa/dotfiles" target="_blank" rel="noopener noreferrer">dotfiles</a>
+            <span class="project-status">ENV</span>
+          </div>
+          <p class="project-desc">Personal environment configuration, focused on basic setup and support files for terminal and editor workflows.</p>
+          <div class="project-tags"><span>Vim Script</span><span>dotfiles</span><span>terminal</span><span>setup</span></div>
+          <div class="project-links"><a href="https://github.com/clivoa/dotfiles" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-top">
+            <a class="project-name" href="https://github.com/clivoa/clivoa.github.io" target="_blank" rel="noopener noreferrer">clivoa.github.io</a>
+            <span class="project-status">SITE</span>
+          </div>
+          <p class="project-desc">This personal page: terminal, links, inventory summary, and showcase of public GitHub projects.</p>
+          <div class="project-tags"><span>HTML</span><span>GitHub Pages</span><span>portfolio</span><span>security</span></div>
+          <div class="project-links"><a href="https://clivoa.github.io/" target="_blank" rel="noopener noreferrer">open site</a><a href="https://github.com/clivoa/clivoa.github.io" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+        </article>
+      </div>
+
+      <p class="inventory-note">8 private repositories were included in the summary, but their names and links are intentionally excluded from this public page.</p>
+    </section>
   </div>
 
   <script>
